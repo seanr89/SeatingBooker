@@ -1,0 +1,6 @@
+@SeatingAPI_HostAddress = http://localhost:5142
+
+GET {{SeatingAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
