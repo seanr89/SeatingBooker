@@ -1,5 +1,8 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var SeatingAPI = builder.AddProject<Projects.SeatingAPI>("SeatingAPI");
+var postgres = builder.AddPostgres("postgres").AddDatabase("seatingDb");
+
+builder.AddProject<Projects.SeatingAPI>("SeatingAPI")
+    .WithReference(postgres);
 
 builder.Build().Run();
