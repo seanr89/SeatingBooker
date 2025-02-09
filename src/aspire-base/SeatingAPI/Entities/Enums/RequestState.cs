@@ -3,7 +3,7 @@
 public enum RequestState
 {
     Pending,
-    Approved,
+    Accepted,
     Cancelled,
     Denied
 }

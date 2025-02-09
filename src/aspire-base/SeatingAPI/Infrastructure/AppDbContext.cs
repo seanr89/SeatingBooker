@@ -11,8 +11,14 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // modelBuilder.Entity<Customer>(c => {
-        //     c.HasKey(x => x.Id);
-        // });
+        modelBuilder.Entity<Desk>()
+            .HasOne(d => d.Location)
+            .WithMany(l => l.Desks)
+            .HasForeignKey(d => d.LocationId);
+
+        modelBuilder.Entity<BookingRequest>()
+            .HasOne(br => br.Desk)
+            .WithMany(d => d.BookingRequests)
+            .HasForeignKey(br => br.DeskId);
     }
 }
