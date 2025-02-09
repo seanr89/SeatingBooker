@@ -4,6 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
+builder.Services.AddControllers();
+
+builder.AddNpgsqlDbContext<AppDbContext>("seatingDb");
 builder.Services.AddTransient<LocationService>();
 builder.Services.AddTransient<StaffService>();
 

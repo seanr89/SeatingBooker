@@ -7,6 +7,10 @@ public class StaffService
         
     }
 
+    /// <summary>
+    /// Simple request to get all staff information
+    /// </summary>
+    /// <returns></returns>
     public List<Staff> GetStaff()
     {
         return new List<Staff>
