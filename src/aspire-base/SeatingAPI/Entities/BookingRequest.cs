@@ -8,4 +8,5 @@ public class BookingRequest
     public Desk Desk { get; set; }
     public int LocationId { get; set; }
     public Location Location { get; set; }
+    public RequestState State { get; set; }
 }
