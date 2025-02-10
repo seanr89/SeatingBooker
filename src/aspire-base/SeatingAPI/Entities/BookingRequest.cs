@@ -1,6 +1,6 @@
 
 
-public class BookingRequest
+public class BookingRequest : AuditableEntity
 {
     public int Id { get; set; }
     public DateTime RequestDate { get; set; }
