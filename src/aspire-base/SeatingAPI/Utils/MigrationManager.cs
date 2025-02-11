@@ -11,6 +11,7 @@ public static class MigrationManager
                 try
                 {
                     appContext.Database.Migrate();
+                    ContextSeeder.SeedData(appContext).Wait();
                 }
                 catch (Exception ex)
                 {

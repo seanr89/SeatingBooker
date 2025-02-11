@@ -11,6 +11,24 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Staff>()
+            .HasKey(s => s.Id);
+        modelBuilder.Entity<Staff>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Location>()
+            .HasKey(l => l.Id);
+        modelBuilder.Entity<Location>()
+            .Property(l => l.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Desk>()
+            .HasKey(d => d.Id);
+        modelBuilder.Entity<Desk>()
+            .Property(d => d.Id)
+            .ValueGeneratedOnAdd();
+
         modelBuilder.Entity<Desk>()
             .HasOne(d => d.Location)
             .WithMany(l => l.Desks)
