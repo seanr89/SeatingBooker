@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]/[action]")]
 public class BookingController : ControllerBase
 {
-    public BookingController()
+    private readonly BookingService _bookingService;
+    public BookingController(BookingService bookingService)
     {
-        
+        _bookingService = bookingService;
     }
 }

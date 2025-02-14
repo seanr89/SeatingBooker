@@ -5,6 +5,7 @@ public static class ContextSeeder
 {
     public static async Task SeedData(AppDbContext context)
     {
+        Console.WriteLine("Seeding data");
         await SeedLocations(context);
         await SeedDesks(context);
         await SeedStaff(context);

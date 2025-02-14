@@ -42,7 +42,6 @@ public class AppDbContext : DbContext
 
     /// <summary>
     /// Supporting default and global controls for Audit events (dates and edits)
-    /// TODO: user info needs to be added!
     /// </summary>
     /// <returns></returns>
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

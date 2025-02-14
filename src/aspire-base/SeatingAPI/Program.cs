@@ -9,11 +9,16 @@ builder.Services.AddControllers();
 builder.AddNpgsqlDbContext<AppDbContext>("seatingDb");
 builder.Services.AddTransient<LocationService>();
 builder.Services.AddTransient<StaffService>();
+builder.Services.AddTransient<DeskService>();
+builder.Services.AddTransient<BookingService>();
+
+
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+//Runs Migration and Seeding!
 var app = builder.Build().MigrateDatabase();
 
 // Configure the HTTP request pipeline.
