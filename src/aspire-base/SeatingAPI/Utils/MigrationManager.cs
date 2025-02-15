@@ -4,6 +4,7 @@ public static class MigrationManager
 {
     public static WebApplication MigrateDatabase(this WebApplication webApp)
     {
+        Console.WriteLine("Migrating Database");
         using (var scope = webApp.Services.CreateScope())
         {
             using (var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>())
@@ -22,5 +23,19 @@ public static class MigrationManager
             }
         }
         return webApp;
+    }
+
+    public static bool TestConnection(AppDbContext context)
+    {
+        try
+        {
+            context.Database.OpenConnection();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return false;
+        }
     }
 }

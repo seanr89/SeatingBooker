@@ -10,4 +10,10 @@ public class BookingController : ControllerBase
     {
         _bookingService = bookingService;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetBookings()
+    {
+        return Ok(await _bookingService.GetBookings());
+    }
 }

@@ -11,8 +11,15 @@ public class StaffController : ControllerBase
         _staffService = staffService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> GetStaff()
     {
         return Ok(await _staffService.GetStaff());
+    }
+
+    [HttpGet("{id}", Name = "GetStaff")]
+    public async Task<IActionResult> GetStaff(int id)
+    {
+        return Ok(await _staffService.GetStaff(id));
     }
 }

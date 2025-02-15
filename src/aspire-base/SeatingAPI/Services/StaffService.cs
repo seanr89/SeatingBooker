@@ -19,15 +19,9 @@ public class StaffService
         return await _context.Staff.ToListAsync();
     }
 
-    public Staff GetStaff(int id)
+    public async Task<Staff> GetStaff(int id)
     {
-        return new Staff
-        {
-            Id = id,
-            Name = "Staff " + id,
-            Email = "s" + id + "@email.com",
-            Active = true,
-            LocationId = 1
-        };
+        return await _context.Staff
+            .FirstAsync(s => s.Id == id);
     }
 }

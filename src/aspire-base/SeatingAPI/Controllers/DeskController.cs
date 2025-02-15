@@ -10,4 +10,10 @@ public class DeskController : ControllerBase
     {
         _deskService = deskService;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetDesks()
+    {
+        return Ok(await _deskService.GetDesks());
+    }
 }
