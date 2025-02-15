@@ -1,6 +1,7 @@
 # SeatingBooker
 dotnet app to create a web-based API to allow or seats to be booked on a single day!
 
+[![.github/workflows/main.yml](https://github.com/seanr89/SeatingBooker/actions/workflows/main.yml/badge.svg)](https://github.com/seanr89/SeatingBooker/actions/workflows/main.yml)
 
 ## Aspire
 
