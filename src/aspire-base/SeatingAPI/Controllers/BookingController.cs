@@ -16,4 +16,14 @@ public class BookingController : ControllerBase
     {
         return Ok(await _bookingService.GetBookings());
     }
+
+    public async Task<IActionResult> GetBooking(int id)
+    {
+        var booking = await _bookingService.GetBooking(id);
+        if (booking == null)
+        {
+            return NotFound();
+        }
+        return Ok(booking);
+    }
 }

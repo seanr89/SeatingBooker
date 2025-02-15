@@ -19,9 +19,10 @@ public class StaffService
         return await _context.Staff.ToListAsync();
     }
 
-    public async Task<Staff> GetStaff(int id)
+    public async Task<Staff?> GetStaff(int id)
     {
         return await _context.Staff
-            .FirstAsync(s => s.Id == id);
+            .Include(s => s.Location)
+            .FirstOrDefaultAsync(s => s.Id == id);
     }
 }

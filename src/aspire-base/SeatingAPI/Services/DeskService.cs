@@ -13,4 +13,12 @@ public class DeskService
     {
         return await _context.Desks.ToListAsync();
     }
+
+    public async Task<Desk?> GetDesk(int id)
+    {
+        return await _context.Desks
+            .Include(d => d.Staff)
+            .Include(d => d.BookingRequests)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

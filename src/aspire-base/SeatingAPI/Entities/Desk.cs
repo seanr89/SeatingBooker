@@ -7,5 +7,6 @@ public class Desk
     public Location Location { get; set; }
     public bool IsHotDesk { get; set; } = false;
     public int? StaffId { get; set; }
+    public Staff? Staff { get; set; }
     public List<BookingRequest> BookingRequests { get; set; }
 }

@@ -13,4 +13,21 @@ public class BookingService
     {
         return await _context.BookingRequests.ToListAsync();
     }
+
+    public async Task<BookingRequest?> GetBooking(int id)
+    {
+        return await _context.BookingRequests.FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    /// <summary>
+    /// TODO: need to add validation for booking!!
+    /// </summary>
+    /// <param name="booking"></param>
+    /// <returns></returns>
+    public async Task<BookingRequest> CreateBooking(BookingRequest booking)
+    {
+        _context.BookingRequests.Add(booking);
+        await _context.SaveChangesAsync();
+        return booking;
+    }
 }
