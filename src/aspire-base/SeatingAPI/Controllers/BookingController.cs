@@ -26,4 +26,12 @@ public class BookingController : ControllerBase
         }
         return Ok(booking);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateBooking(BookingRequestDTO bookingRequestDTO)
+    {
+        throw new NotImplementedException();
+        // var booking = await _bookingService.CreateBooking(bookingRequestDTO);
+        // return CreatedAtRoute("GetBooking", new { id = booking.Id }, booking);
+    }
 }

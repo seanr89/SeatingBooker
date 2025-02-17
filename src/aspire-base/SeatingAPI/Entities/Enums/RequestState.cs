@@ -2,8 +2,9 @@
 
 public enum RequestState
 {
+    Free = 0,
     Pending,
-    Accepted,
+    Booked,
     Cancelled,
     Denied
 }

@@ -16,4 +16,16 @@ public class DeskController : ControllerBase
     {
         return Ok(await _deskService.GetDesks());
     }
+
+    [HttpGet("{id}", Name = "GetDeskById")]
+    public async Task<IActionResult> GetDeskById(int id)
+    {
+        return Ok(await _deskService.GetDeskById(id));
+    }
+
+    [HttpGet("{id}/{date}", Name = "CheckDeskStatusForDate")]
+    public async Task<IActionResult> CheckDeskStatusForDate(int id, DateTime date)
+    {
+        return Ok(await _deskService.CheckDeskStatusForDate(id, date));
+    }
 }

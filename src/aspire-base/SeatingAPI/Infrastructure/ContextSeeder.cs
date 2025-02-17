@@ -7,8 +7,9 @@ public static class ContextSeeder
     {
         Console.WriteLine("Seeding data");
         await SeedLocations(context);
-        await SeedDesks(context);
         await SeedStaff(context);
+        await SeedDesks(context);
+        
     }
 
     static async Task SeedLocations(AppDbContext context)
@@ -23,13 +24,13 @@ public static class ContextSeeder
             {
                 Name = "Location 1",
                 Active = true,
-                SeatingCount = 100
+                SeatingCount = 10
             },
             new Location
             {
                 Name = "Location 2",
                 Active = true,
-                SeatingCount = 65
+                SeatingCount = 5
             },
             new Location
             {
@@ -63,7 +64,8 @@ public static class ContextSeeder
                 LocationId = 1,
                 Name = "Desk 2",
                 Active = true,
-                IsHotDesk = false
+                IsHotDesk = false,
+                StaffId = 2
             },
             new Desk
             {
@@ -92,6 +94,35 @@ public static class ContextSeeder
                 Id = 1,
                 Name = "Staff 1",
                 Email = "staff1@email.com",
+                Active = true,
+                LocationId = 1
+            },
+            new Staff
+            {
+                Id = 2,
+                Name = "Sean Rafferty",
+                Email = "srafferty89@email.com",
+                Active = true,
+                LocationId = 1
+            },new Staff
+            {
+                Id = 3,
+                Name = "Staff 3",
+                Email = "staff3@email.com",
+                Active = true,
+                LocationId = 1
+            },new Staff
+            {
+                Id = 4,
+                Name = "Staff 4",
+                Email = "staff4@email.com",
+                Active = true,
+                LocationId = 1
+            },new Staff
+            {
+                Id = 5,
+                Name = "Staff 5",
+                Email = "staff5@email.com",
                 Active = true,
                 LocationId = 1
             },

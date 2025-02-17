@@ -24,10 +24,11 @@ public class BookingService
     /// </summary>
     /// <param name="booking"></param>
     /// <returns></returns>
-    public async Task<BookingRequest> CreateBooking(BookingRequest booking)
+    public async Task<BookingRequest> CreateBooking(BookingRequestDTO booking)
     {
-        _context.BookingRequests.Add(booking);
-        await _context.SaveChangesAsync();
-        return booking;
-    }
+        throw new NotImplementedException();
+    //     _context.BookingRequests.Add(booking);
+    //     await _context.SaveChangesAsync();
+    //     return booking;
+    // }
 }
