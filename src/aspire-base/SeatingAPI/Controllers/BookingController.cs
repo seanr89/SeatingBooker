@@ -17,6 +17,7 @@ public class BookingController : ControllerBase
         return Ok(await _bookingService.GetBookings());
     }
 
+    [HttpGet("{id}", Name = "GetBooking")]
     public async Task<IActionResult> GetBooking(int id)
     {
         var booking = await _bookingService.GetBooking(id);
@@ -25,6 +26,17 @@ public class BookingController : ControllerBase
             return NotFound();
         }
         return Ok(booking);
+    }
+
+    [HttpGet("{locationId}/{date}", Name = "GetLocationBookingsForLocationOnDate")]
+    public async Task<IActionResult> GetLocationBookingsForLocationOnDate(int locationId, DateTime date)
+    {
+        var bookings = await _bookingService.GetLocationBookingsForLocationOnDate(locationId, date);
+        if (bookings == null)
+        {
+            return NotFound();
+        }
+        return Ok(bookings);
     }
 
     [HttpPost]
@@ -37,5 +49,18 @@ public class BookingController : ControllerBase
             return BadRequest();
         }
         return Ok(res);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateBooking(int id, BookingRequestDTO bookingRequestDTO)
+    {
+        throw new NotImplementedException();
+        // var res = await _bookingService.UpdateBooking(id, bookingRequestDTO);
+
+        // if (res == null)
+        // {
+        //     return BadRequest();
+        // }
+        // return Ok(res);
     }
 }

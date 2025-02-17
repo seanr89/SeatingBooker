@@ -26,13 +26,13 @@ public class BookingService
     /// <returns></returns>
     public async Task<BookingRequest?> CreateBooking(BookingRequestDTO booking)
     {
-        var desk = await _context.Desks.FirstOrDefaultAsync(x => x.Id == booking.DeskId);
-        if (desk == null)
-        {
-            return null;
-        }
-        var staff = await _context.Staff.FirstOrDefaultAsync(x => x.Id == booking.StaffId);
-        if (staff == null)
+        var deskRequest = _context.Desks.FirstOrDefaultAsync(x => x.Id == booking.DeskId);
+        var staffRequest = _context.Staff.FirstOrDefaultAsync(x => x.Id == booking.StaffId);
+
+        await Task.WhenAll(deskRequest, staffRequest);
+        var desk = deskRequest.Result;
+        var staff = staffRequest.Result;
+        if (desk == null || staff == null)
         {
             return null;
         }
@@ -71,5 +71,18 @@ public class BookingService
         await _context.BookingRequests.AddAsync(bookingRequest);
         await _context.SaveChangesAsync();
         return bookingRequest;   
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="locationId"></param>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    public async Task<List<BookingRequest>> GetLocationBookingsForLocationOnDate(int locationId, DateTime date)
+    {
+        return await _context.BookingRequests
+            .Where(x => x.Desk.LocationId == locationId && x.RequestDate == date)
+            .ToListAsync();
     }
 }

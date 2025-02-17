@@ -19,10 +19,33 @@ public class StaffService
         return await _context.Staff.ToListAsync();
     }
 
-    public async Task<Staff?> GetStaff(int id)
+    public async Task<Staff?> GetStaffMember(int id)
     {
         return await _context.Staff
             .Include(s => s.Location)
             .FirstOrDefaultAsync(s => s.Id == id);
+    }
+
+    public async Task<Staff?> CreateStaff(CreateStaffDTO staff)
+    {
+        var locationRequest = _context.Locations.FirstOrDefaultAsync(x => x.Id == staff.LocationId);
+        await locationRequest;
+        var location = locationRequest.Result;
+        if (location == null)
+        {
+            return null;
+        }
+
+        var newStaff = new Staff
+        {
+            Name = staff.Name,
+            Email = staff.Email,
+            Location = location,
+            Active = true
+        };
+
+        _context.Staff.Add(newStaff);
+        await _context.SaveChangesAsync();
+        return newStaff;
     }
 }

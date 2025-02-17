@@ -17,9 +17,21 @@ public class StaffController : ControllerBase
         return Ok(await _staffService.GetStaff());
     }
 
-    [HttpGet("{id}", Name = "GetStaff")]
-    public async Task<IActionResult> GetStaff(int id)
+    [HttpGet("{id}", Name = "GetStaffMember")]
+    public async Task<IActionResult> GetStaffMember(int id)
     {
-        return Ok(await _staffService.GetStaff(id));
+        return Ok(await _staffService.GetStaffMember(id));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateStaff(CreateStaffDTO staff)
+    {
+        var res = await _staffService.CreateStaff(staff);
+
+        if (res == null)
+        {
+            return BadRequest();
+        }
+        return Ok(res);
     }
 }
