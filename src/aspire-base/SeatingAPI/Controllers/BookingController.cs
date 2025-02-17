@@ -30,8 +30,12 @@ public class BookingController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateBooking(BookingRequestDTO bookingRequestDTO)
     {
-        throw new NotImplementedException();
-        // var booking = await _bookingService.CreateBooking(bookingRequestDTO);
-        // return CreatedAtRoute("GetBooking", new { id = booking.Id }, booking);
+        var res = await _bookingService.CreateBooking(bookingRequestDTO);
+
+        if (res == null)
+        {
+            return BadRequest();
+        }
+        return Ok(res);
     }
 }
