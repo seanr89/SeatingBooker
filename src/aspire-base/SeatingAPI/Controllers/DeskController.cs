@@ -26,6 +26,31 @@ public class DeskController : ControllerBase
     [HttpGet("{id}/{date}", Name = "CheckDeskStatusForDate")]
     public async Task<IActionResult> CheckDeskStatusForDate(int id, DateTime date)
     {
-        return Ok(await _deskService.CheckDeskStatusForDate(id, date));
+        var result = await _deskService.CheckDeskStatusForDate(id, date);
+        if (result == null)
+        {
+            return BadRequest();
+        }
+        var res = result switch
+        {
+            RequestState.Free => "Free",
+            RequestState.Booked => "Booked",
+            RequestState.Pending => "Pending",
+            RequestState.Cancelled => "Cancelled",
+            _ => "Unknown"
+        };
+        return Ok(res);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateDesk(CreateDeskDTO desk)
+    {
+        var res = await _deskService.CreateDesk(desk);
+
+        if (res == null)
+        {
+            return BadRequest();
+        }
+        return Ok(res);
     }
 }

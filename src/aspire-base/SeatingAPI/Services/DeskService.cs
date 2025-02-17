@@ -53,4 +53,37 @@ public class DeskService
 
         return bookingRequest.State;
     }
+
+    public async Task<Desk?> CreateDesk(CreateDeskDTO desk)
+    {
+        //TODO: add validation for desk
+        var Location = await _context.Locations.FirstOrDefaultAsync(x => x.Id == desk.LocationId);
+        if (Location == null)
+        {
+            //throw new Exception("Location not found");
+            return null;
+        }
+
+        if(desk.StaffId != null)
+        {
+            var staff = await _context.Staff.FirstOrDefaultAsync(x => x.Id == desk.StaffId);
+            if (staff == null)
+            {
+                //throw new Exception("Staff not found");
+                return null;
+            }
+        }
+
+        var newDesk = new Desk
+        {
+            Name = desk.Name,
+            IsHotDesk = desk.IsHotDesk,
+            LocationId = desk.LocationId
+        };
+
+        _context.Desks.Add(newDesk);
+        await _context.SaveChangesAsync();
+
+        return newDesk;
+    }
 }

@@ -14,9 +14,18 @@ public class BookingService
         return await _context.BookingRequests.ToListAsync();
     }
 
+    /// <summary>
+    /// Handle the retrieval of a single booking
+    /// Desk and Staff are included in the response currently 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>BookingRequest : Nullable</returns>
     public async Task<BookingRequest?> GetBooking(int id)
     {
-        return await _context.BookingRequests.FirstOrDefaultAsync(x => x.Id == id);
+        return await _context.BookingRequests
+            .Include(x => x.Desk)
+            .Include(x => x.Staff)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     /// <summary>
@@ -45,12 +54,13 @@ public class BookingService
         var bookedCount = matchedBookings.Count(x => 
             x.State == RequestState.Pending 
             || x.State == RequestState.Booked);
+        // If there are any pending or booked requests, we can't book the desk
         if (bookedCount > 0)
         {
             return null;
         }
 
-        //TODO: check for desk availability if hotDesk is not there
+        //Check for desk availability if its not a hot desk
         if(desk.IsHotDesk == false)
         {
             var isReleased = matchedBookings.Any(x => x.State == RequestState.Free);
@@ -60,6 +70,8 @@ public class BookingService
             }
         }
         
+        // Passed all validations, we can now create the booking
+
         var bookingRequest = new BookingRequest
         {
             DeskId = booking.DeskId,
@@ -68,7 +80,7 @@ public class BookingService
             State = RequestState.Booked
         };
 
-        await _context.BookingRequests.AddAsync(bookingRequest);
+        _context.BookingRequests.Add(bookingRequest);
         await _context.SaveChangesAsync();
         return bookingRequest;   
     }
@@ -78,11 +90,29 @@ public class BookingService
     /// </summary>
     /// <param name="locationId"></param>
     /// <param name="date"></param>
-    /// <returns></returns>
+    /// <returns>List of BookingRequests</returns>
     public async Task<List<BookingRequest>> GetLocationBookingsForLocationOnDate(int locationId, DateTime date)
     {
         return await _context.BookingRequests
             .Where(x => x.Desk.LocationId == locationId && x.RequestDate == date)
             .ToListAsync();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<bool> CancelBooking(int id)
+    {
+        var booking = await _context.BookingRequests.FirstOrDefaultAsync(x => x.Id == id);
+        if (booking == null)
+        {
+            return false;
+        }
+
+        booking.State = RequestState.Cancelled;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

@@ -51,16 +51,15 @@ public class BookingController : ControllerBase
         return Ok(res);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateBooking(int id, BookingRequestDTO bookingRequestDTO)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> CancelBooking(int id)
     {
-        throw new NotImplementedException();
-        // var res = await _bookingService.UpdateBooking(id, bookingRequestDTO);
+        var res = await _bookingService.CancelBooking(id);
 
-        // if (res == null)
-        // {
-        //     return BadRequest();
-        // }
-        // return Ok(res);
+        if (res == false)
+        {
+            return BadRequest();
+        }
+        return Ok(res);
     }
 }
