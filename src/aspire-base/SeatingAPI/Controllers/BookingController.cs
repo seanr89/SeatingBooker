@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 public class BookingController : ControllerBase
 {
     private readonly BookingService _bookingService;
-    public BookingController(BookingService bookingService)
+    private readonly ILogger<BookingController> _logger;
+    public BookingController(BookingService bookingService, ILogger<BookingController> logger)
     {
         _bookingService = bookingService;
+        _logger = logger;
     }
 
     /// <summary>
@@ -81,6 +83,7 @@ public class BookingController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateBooking(CreateBookingRequestDTO bookingRequestDTO)
     {
+        _logger.LogInformation("BookingController:CreateBooking");
         var res = await _bookingService.CreateBooking(bookingRequestDTO);
 
         if (res == null)

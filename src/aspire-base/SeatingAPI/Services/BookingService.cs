@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 public class BookingService
 {
+    private readonly ILogger<BookingService> _logger;
     private readonly AppDbContext _context;
-    public BookingService(AppDbContext context)
+    public BookingService(AppDbContext context, ILogger<BookingService> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public async Task<List<BookingRequest>> GetBookings()
@@ -49,12 +51,9 @@ public class BookingService
     /// <returns></returns>
     public async Task<BookingRequest?> CreateBooking(CreateBookingRequestDTO booking)
     {
-        var deskRequest = _context.Desks.FirstOrDefaultAsync(x => x.Id == booking.DeskId);
-        var staffRequest = _context.Staff.FirstOrDefaultAsync(x => x.Id == booking.StaffId);
-
-        await Task.WhenAll(deskRequest, staffRequest);
-        var desk = deskRequest.Result;
-        var staff = staffRequest.Result;
+        _logger.LogInformation("Creating booking request for desk {DeskId} on {RequestDate}", booking.DeskId, booking.RequestDate);
+        var desk = await _context.Desks.FirstOrDefaultAsync(x => x.Id == booking.DeskId);
+        var staff = await _context.Staff.FirstOrDefaultAsync(x => x.Id == booking.StaffId);
         if (desk == null || staff == null)
         {
             return null;
@@ -94,7 +93,7 @@ public class BookingService
             State = RequestState.Booked
         };
 
-        _context.BookingRequests.Add(bookingRequest);
+        await _context.BookingRequests.AddAsync(bookingRequest);
         await _context.SaveChangesAsync();
         return bookingRequest;   
     }

@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 public class DeskService
 {
+    private readonly ILogger<DeskService> _logger;
     private readonly AppDbContext _context;
-    public DeskService(AppDbContext context)
+    public DeskService(AppDbContext context, ILogger<DeskService> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public async Task<List<Desk>> GetDesks()
@@ -56,8 +58,11 @@ public class DeskService
 
     public async Task<Desk?> CreateDesk(CreateDeskDTO desk)
     {
+        _logger.LogInformation("DeskService:CreateDesk");
         //TODO: add validation for desk
-        var Location = await _context.Locations.FirstOrDefaultAsync(x => x.Id == desk.LocationId);
+        var Location = await _context.Locations
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == desk.LocationId);
         if (Location == null)
         {
             //throw new Exception("Location not found");
@@ -66,7 +71,9 @@ public class DeskService
 
         if(desk.StaffId != null)
         {
-            var staff = await _context.Staff.FirstOrDefaultAsync(x => x.Id == desk.StaffId);
+            var staff = await _context.Staff
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == desk.StaffId);
             if (staff == null)
             {
                 //throw new Exception("Staff not found");
@@ -74,6 +81,7 @@ public class DeskService
             }
         }
 
+        _logger.LogInformation("Creating new desk");
         var newDesk = new Desk
         {
             Name = desk.Name,
@@ -81,7 +89,7 @@ public class DeskService
             LocationId = desk.LocationId
         };
 
-        _context.Desks.Add(newDesk);
+        await _context.Desks.AddAsync(newDesk);
         await _context.SaveChangesAsync();
 
         return newDesk;
