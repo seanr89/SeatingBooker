@@ -28,6 +28,20 @@ public class BookingService
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<List<BookingRequest>> GetBookingsForLocation(int locationId)
+    {
+        return await _context.BookingRequests
+            .Where(x => x.Desk.LocationId == locationId)
+            .ToListAsync();
+    }
+
+    public async Task<List<BookingRequest>> GetBookingsForDesk(int deskId)
+    {
+        return await _context.BookingRequests
+            .Where(x => x.DeskId == deskId)
+            .ToListAsync();
+    }
+
     /// <summary>
     /// TODO: need to add validation for booking!!
     /// </summary>

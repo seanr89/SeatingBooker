@@ -40,17 +40,8 @@ if (app.Environment.IsDevelopment())
     // });
 }
 
-app.MapGet("/", () => "Hello World!")
-    .WithName("HelloWorld");
-
 app.MapGet("/healthcheck", () => "Healthy")
     .WithName("HealthCheck");
-
-// app.MapGet("/locations", (LocationService service) => service.GetLocations())
-//     .WithName("GetLocations");
-
-// app.MapGet("/locations/{id}", (LocationService service, int id) => service.GetLocation(id))
-//     .WithName("GetLocation");
 
 app.UseHttpsRedirection();
 

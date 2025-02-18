@@ -17,10 +17,17 @@ public class LocationService
         return await _context.Locations.ToListAsync();
     }
 
+    /// <summary>
+    /// Support for getting a single location
+    /// Includes Desks and Staff 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public async Task<Location> GetLocation(int id)
     {
         var location = await _context.Locations
             .Include(l => l.Desks)
+            .ThenInclude(d => d.Staff)
             .FirstAsync(l => l.Id == id);
         return location;
     }

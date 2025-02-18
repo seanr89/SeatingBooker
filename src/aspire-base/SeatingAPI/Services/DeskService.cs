@@ -51,7 +51,7 @@ public class DeskService
             return RequestState.Booked;
         }
 
-        return bookingRequest.State;
+        return bookingRequest?.State;
     }
 
     public async Task<Desk?> CreateDesk(CreateDeskDTO desk)

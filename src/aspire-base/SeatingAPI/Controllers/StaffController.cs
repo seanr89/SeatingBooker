@@ -23,29 +23,29 @@ public class StaffController : ControllerBase
         var staff = await _staffService.GetStaffMember(id);
         if (staff == null)
         {
-            return NotFound();
+            return BadRequest();
         }
         var dto = new StaffDTO{
             Id = staff.Id,
             Name = staff.Name,
             Email = staff.Email,
             Active = staff.Active,
-            LocationName = staff.Location?.Name
+            LocationName = staff.Location?.Name ?? "No Location"
         };
         return Ok(dto);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateStaff(CreateStaffDTO staff)
-    {
-        var res = await _staffService.CreateStaff(staff);
+    // [HttpPost]
+    // public async Task<IActionResult> CreateStaff(CreateStaffDTO staff)
+    // {
+    //     var res = await _staffService.CreateStaff(staff);
 
-        if (res == null)
-        {
-            return BadRequest();
-        }
-        return Ok(res);
-    }
+    //     if (res == null)
+    //     {
+    //         return BadRequest();
+    //     }
+    //     return Ok(res);
+    // }
 
     //TODO: Implement UpdateStaff
 }

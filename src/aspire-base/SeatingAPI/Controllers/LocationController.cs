@@ -21,23 +21,18 @@ public class LocationController : ControllerBase
         var locations = await _locationService.GetLocations();
         if (locations == null)
         {
-            return NotFound();
+            return BadRequest();
         }
         List<LocationDTO> locationDTOs = new List<LocationDTO>();
         foreach (var location in locations)
         {
+            // Unsure on the seating count work etc..!
             locationDTOs.Add(new LocationDTO
             {
                 Id = location.Id,
                 Name = location.Name,
-                Desks = location.Desks.Select(x => new DeskDTO
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Location = location.Name,
-                    IsHotDesk = x.IsHotDesk,
-                    StaffName = x.Staff?.Name ?? "No Staff Assigned"
-                }).ToList()
+                Desks = [],
+                DeskCount = location.SeatingCount
             });
         }
         return Ok(locationDTOs);
@@ -50,12 +45,13 @@ public class LocationController : ControllerBase
         var location = await _locationService.GetLocation(id);
         if (location == null)
         {
-            return NotFound();
+            return BadRequest();
         }
         var locationDTO = new LocationDTO
         {
             Id = location.Id,
             Name = location.Name,
+            DeskCount = location.SeatingCount,
             Desks = location.Desks.Select(x => new DeskDTO
             {
                 Id = x.Id,

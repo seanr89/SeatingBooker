@@ -11,19 +11,50 @@ public class BookingController : ControllerBase
         _bookingService = bookingService;
     }
 
+    /// <summary>
+    /// Handle all bookings to be requested
+    /// </summary>
+    /// <returns>Collection of all bookings</returns>
     [HttpGet]
     public async Task<IActionResult> GetBookings()
     {
         return Ok(await _bookingService.GetBookings());
     }
 
+    [HttpGet("{locationId}", Name = "GetBookingsForLocation")]
+    public async Task<IActionResult> GetBookingsForLocation(int locationId)
+    {
+        var bookings = await _bookingService.GetBookingsForLocation(locationId);
+        if (bookings == null)
+        {
+            return BadRequest();
+        }
+        return Ok(bookings);
+    }
+
+    [HttpGet("{deskId}", Name = "GetBookingsForDesk")]
+    public async Task<IActionResult> GetBookingsForDesk(int deskId)
+    {
+        var bookings = await _bookingService.GetBookingsForDesk(deskId);
+        if (bookings == null)
+        {
+            return BadRequest();
+        }
+        return Ok(bookings);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}", Name = "GetBooking")]
     public async Task<IActionResult> GetBooking(int id)
     {
         var booking = await _bookingService.GetBooking(id);
         if (booking == null)
         {
-            return NotFound();
+            return BadRequest();
         }
         var dto = new BookingRequestDTO
         {
@@ -42,7 +73,7 @@ public class BookingController : ControllerBase
         var bookings = await _bookingService.GetLocationBookingsForLocationOnDate(locationId, date);
         if (bookings == null)
         {
-            return NotFound();
+            return BadRequest();
         }
         return Ok(bookings);
     }

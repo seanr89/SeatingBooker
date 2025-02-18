@@ -28,7 +28,7 @@ public class DeskController : ControllerBase
         var desk = await _deskService.GetDeskById(id);
         if (desk == null)
         {
-            return NotFound();
+            return BadRequest();
         }
         
         var dto = new DeskDTO
@@ -37,8 +37,8 @@ public class DeskController : ControllerBase
             Name = desk.Name,
             Active = desk.Active,
             IsHotDesk = desk.IsHotDesk,
-            Location = desk.Location?.Name,
-            StaffName = desk.Staff?.Name
+            Location = desk.Location?.Name ?? "No Location",
+            StaffName = desk.Staff?.Name ?? "No Staff Assigned"
         };
 
         return Ok(dto);
@@ -61,15 +61,16 @@ public class DeskController : ControllerBase
         return Ok(HelperMethods.GetStringFromRequestState(result));
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateDesk(CreateDeskDTO desk)
-    {
-        var res = await _deskService.CreateDesk(desk);
 
-        if (res == null)
-        {
-            return BadRequest();
-        }
-        return Ok(res);
-    }
+    // [HttpPost]
+    // public async Task<IActionResult> CreateDesk(CreateDeskDTO desk)
+    // {
+    //     var res = await _deskService.CreateDesk(desk);
+
+    //     if (res == null)
+    //     {
+    //         return BadRequest();
+    //     }
+    //     return Ok(res);
+    // }
 }
