@@ -6,6 +6,7 @@ public class AppDbContext : DbContext
     public DbSet<Staff> Staff { get; set; }
     public DbSet<Desk> Desks { get; set; }
     public DbSet<BookingRequest> BookingRequests { get; set; }
+
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
@@ -53,11 +54,11 @@ public class AppDbContext : DbContext
             {
                 case EntityState.Added:
                     entry.Entity.Created = DateTime.UtcNow;
-                    entry.Entity.CreatedBy = "Unknown";
+                    entry.Entity.CreatedBy = "System";
                     break;
                 case EntityState.Modified:
                     entry.Entity.LastModified = DateTime.UtcNow;
-                    entry.Entity.LastModifiedBy = "Unknown";
+                    entry.Entity.LastModifiedBy = "System";
                     break;
             }
         }

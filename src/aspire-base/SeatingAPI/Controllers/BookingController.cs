@@ -25,7 +25,15 @@ public class BookingController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(booking);
+        var dto = new BookingRequestDTO
+        {
+            Id = booking.Id,
+            DeskId = booking.DeskId,
+            StaffId = booking.StaffId,
+            RequestDate = booking.RequestDate,
+            State = HelperMethods.GetStringFromRequestState(booking.State)
+        };
+        return Ok(dto);
     }
 
     [HttpGet("{locationId}/{date}", Name = "GetLocationBookingsForLocationOnDate")]
@@ -40,7 +48,7 @@ public class BookingController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateBooking(BookingRequestDTO bookingRequestDTO)
+    public async Task<IActionResult> CreateBooking(CreateBookingRequestDTO bookingRequestDTO)
     {
         var res = await _bookingService.CreateBooking(bookingRequestDTO);
 

@@ -17,12 +17,39 @@ public class DeskController : ControllerBase
         return Ok(await _deskService.GetDesks());
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}", Name = "GetDeskById")]
     public async Task<IActionResult> GetDeskById(int id)
     {
-        return Ok(await _deskService.GetDeskById(id));
+        var desk = await _deskService.GetDeskById(id);
+        if (desk == null)
+        {
+            return NotFound();
+        }
+        
+        var dto = new DeskDTO
+        {
+            Id = desk.Id,
+            Name = desk.Name,
+            Active = desk.Active,
+            IsHotDesk = desk.IsHotDesk,
+            Location = desk.Location?.Name,
+            StaffName = desk.Staff?.Name
+        };
+
+        return Ok(dto);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="date"></param>
+    /// <returns></returns>
     [HttpGet("{id}/{date}", Name = "CheckDeskStatusForDate")]
     public async Task<IActionResult> CheckDeskStatusForDate(int id, DateTime date)
     {
@@ -31,15 +58,7 @@ public class DeskController : ControllerBase
         {
             return BadRequest();
         }
-        var res = result switch
-        {
-            RequestState.Free => "Free",
-            RequestState.Booked => "Booked",
-            RequestState.Pending => "Pending",
-            RequestState.Cancelled => "Cancelled",
-            _ => "Unknown"
-        };
-        return Ok(res);
+        return Ok(HelperMethods.GetStringFromRequestState(result));
     }
 
     [HttpPost]

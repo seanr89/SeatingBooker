@@ -33,7 +33,7 @@ public class BookingService
     /// </summary>
     /// <param name="booking"></param>
     /// <returns></returns>
-    public async Task<BookingRequest?> CreateBooking(BookingRequestDTO booking)
+    public async Task<BookingRequest?> CreateBooking(CreateBookingRequestDTO booking)
     {
         var deskRequest = _context.Desks.FirstOrDefaultAsync(x => x.Id == booking.DeskId);
         var staffRequest = _context.Staff.FirstOrDefaultAsync(x => x.Id == booking.StaffId);

@@ -31,12 +31,6 @@ public static class ContextSeeder
                 Name = "Location 2",
                 Active = true,
                 SeatingCount = 5
-            },
-            new Location
-            {
-                Name = "Location 3",
-                Active = false,
-                SeatingCount = 40
             }
         };
         await context.Locations.AddRangeAsync(locations);
@@ -49,7 +43,7 @@ public static class ContextSeeder
         {
             return;
         }
-        List<Desk> desks = new List<Desk>{
+        List<Desk> desks = [
             new Desk
             {
                 Id = 1,
@@ -75,7 +69,15 @@ public static class ContextSeeder
                 Active = true,
                 IsHotDesk = true
             },
-        };
+            new Desk
+            {
+                Id = 4,
+                LocationId = 1,
+                Name = "Desk 4",
+                Active = true,
+                IsHotDesk = true
+            },
+        ];
         await context.Desks.AddRangeAsync(desks);
         await context.SaveChangesAsync();
     }
@@ -123,6 +125,13 @@ public static class ContextSeeder
                 Id = 5,
                 Name = "Staff 5",
                 Email = "staff5@email.com",
+                Active = true,
+                LocationId = 1
+            },new Staff
+            {
+                Id = 6,
+                Name = "Staff 6",
+                Email = "staff6@email.com",
                 Active = true,
                 LocationId = 1
             },

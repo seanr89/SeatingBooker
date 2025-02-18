@@ -20,7 +20,19 @@ public class StaffController : ControllerBase
     [HttpGet("{id}", Name = "GetStaffMember")]
     public async Task<IActionResult> GetStaffMember(int id)
     {
-        return Ok(await _staffService.GetStaffMember(id));
+        var staff = await _staffService.GetStaffMember(id);
+        if (staff == null)
+        {
+            return NotFound();
+        }
+        var dto = new StaffDTO{
+            Id = staff.Id,
+            Name = staff.Name,
+            Email = staff.Email,
+            Active = staff.Active,
+            LocationName = staff.Location?.Name
+        };
+        return Ok(dto);
     }
 
     [HttpPost]

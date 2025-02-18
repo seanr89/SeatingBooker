@@ -1,4 +1,8 @@
 
+/// <summary>
+/// Individual staff member record
+/// Stores identifiers and location base information 
+/// </summary>
 public class Staff
 {
     public int Id { get; set; }
