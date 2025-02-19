@@ -14,7 +14,25 @@ public class DeskController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetDesks()
     {
-        return Ok(await _deskService.GetDesks());
+        var desks = await _deskService.GetDesks();
+        if (desks == null)
+        {
+            return BadRequest();
+        }
+        var dtos = new List<DeskDTO>();
+        foreach (var desk in desks)
+        {
+            dtos.Add(new DeskDTO
+            {
+                Id = desk.Id,
+                Name = desk.Name,
+                Active = desk.Active,
+                IsHotDesk = desk.IsHotDesk,
+                Location = desk.Location?.Name ?? "No Location",
+                StaffName = desk.Staff?.Name ?? "No Staff Assigned"
+            });
+        }
+        return Ok(dtos);
     }
 
     /// <summary>
@@ -60,17 +78,4 @@ public class DeskController : ControllerBase
         }
         return Ok(HelperMethods.GetStringFromRequestState(result));
     }
-
-
-    // [HttpPost]
-    // public async Task<IActionResult> CreateDesk(CreateDeskDTO desk)
-    // {
-    //     var res = await _deskService.CreateDesk(desk);
-
-    //     if (res == null)
-    //     {
-    //         return BadRequest();
-    //     }
-    //     return Ok(res);
-    // }
 }

@@ -14,6 +14,11 @@ public class LocationController : ControllerBase
         _locationService = locationService;
     }
 
+    /// <summary>
+    /// Get location data
+    /// Array based
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetLocations()
     {
@@ -38,6 +43,11 @@ public class LocationController : ControllerBase
         return Ok(locationDTOs);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}", Name = "GetLocation")]
     public async Task<IActionResult> GetLocation(int id)
     {

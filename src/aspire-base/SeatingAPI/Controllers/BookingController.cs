@@ -72,6 +72,7 @@ public class BookingController : ControllerBase
     [HttpGet("{locationId}/{date}", Name = "GetLocationBookingsForLocationOnDate")]
     public async Task<IActionResult> GetLocationBookingsForLocationOnDate(int locationId, DateTime date)
     {
+        _logger.LogInformation("BookingController:GetLocationBookingsForLocationOnDate");
         var bookings = await _bookingService.GetLocationBookingsForLocationOnDate(locationId, date);
         if (bookings == null)
         {
@@ -90,18 +91,27 @@ public class BookingController : ControllerBase
         {
             return BadRequest();
         }
-        return Ok(res);
+        var dto = new BookingRequestDTO
+        {
+            Id = res.Id,
+            DeskId = res.DeskId,
+            StaffId = res.StaffId,
+            RequestDate = res.RequestDate,
+            State = HelperMethods.GetStringFromRequestState(res.State)
+        };
+        return Ok(dto);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> CancelBooking(int id)
     {
+        _logger.LogInformation("BookingController:CancelBooking");
         var res = await _bookingService.CancelBooking(id);
 
         if (res == false)
         {
             return BadRequest();
         }
-        return Ok(res);
+        return Ok();
     }
 }
