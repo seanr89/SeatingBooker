@@ -9,6 +9,7 @@ var postgres = builder.AddPostgres("postgres");
 var seatDb = postgres.AddDatabase("bookings");
 
 builder.AddProject<Projects.SeatingAPI>("SeatingAPI")
+    .WithExternalHttpEndpoints()
     .WithReference(seatDb).WaitFor(postgres);
 
 builder.Build().Run();

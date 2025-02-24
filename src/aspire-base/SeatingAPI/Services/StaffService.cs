@@ -19,6 +19,11 @@ public class StaffService
         return await _context.Staff.ToListAsync();
     }
 
+    /// <summary>
+    /// Single get staff member request
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Staff or null record</returns>
     public async Task<Staff?> GetStaffMember(int id)
     {
         return await _context.Staff
@@ -26,6 +31,11 @@ public class StaffService
             .FirstOrDefaultAsync(s => s.Id == id);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="staff"></param>
+    /// <returns></returns>
     public async Task<Staff?> CreateStaff(CreateStaffDTO staff)
     {
         var locationRequest = _context.Locations.FirstOrDefaultAsync(x => x.Id == staff.LocationId);

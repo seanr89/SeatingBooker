@@ -44,7 +44,7 @@ public class LocationController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Request single location data!
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

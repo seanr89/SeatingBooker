@@ -11,12 +11,38 @@ public class StaffController : ControllerBase
         _staffService = staffService;
     }
 
+    /// <summary>
+    /// Handle request to get all data
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetStaff()
     {
-        return Ok(await _staffService.GetStaff());
+        var staff = await _staffService.GetStaff();
+        if (staff == null)
+        {
+            return BadRequest();
+        }
+        var dtos = new List<StaffDTO>();
+        foreach (var s in staff)
+        {
+            dtos.Add(new StaffDTO
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Email = s.Email,
+                Active = s.Active,
+                LocationName = s.Location?.Name ?? "No Location"
+            });
+        }
+        return Ok(dtos);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}", Name = "GetStaffMember")]
     public async Task<IActionResult> GetStaffMember(int id)
     {
@@ -34,18 +60,4 @@ public class StaffController : ControllerBase
         };
         return Ok(dto);
     }
-
-    // [HttpPost]
-    // public async Task<IActionResult> CreateStaff(CreateStaffDTO staff)
-    // {
-    //     var res = await _staffService.CreateStaff(staff);
-
-    //     if (res == null)
-    //     {
-    //         return BadRequest();
-    //     }
-    //     return Ok(res);
-    // }
-
-    //TODO: Implement UpdateStaff
 }

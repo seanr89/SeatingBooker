@@ -32,30 +32,38 @@ public class DeskService
     /// <returns></returns>
     public async Task<RequestState?> CheckDeskStatusForDate(int id, DateTime date)
     {
+        //Search for the desk first and handle nulls
         var desk = await _context.Desks
             .Include(d => d.BookingRequests)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         if (desk == null)
         {
-            throw new Exception("Desk not found");
+            return null;
         }
 
-        //TODO: we also need to check if a booking request is made on that day for the desk
-
+        //Check if a booking request has been made on that day for the desk
         var bookingRequest = desk.BookingRequests.FirstOrDefault(x => x.RequestDate.Date == date.Date);
+        // if its null and hotdesk is not flagged
         if (bookingRequest == null && desk.IsHotDesk)
         {
             return RequestState.Free;
         }
         
+        // if its null and hotdesk is flagged then it is by default booked
         if (!desk.IsHotDesk){
             return RequestState.Booked;
         }
 
+        // Else we return the state!
         return bookingRequest?.State;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="desk"></param>
+    /// <returns></returns>
     public async Task<Desk?> CreateDesk(CreateDeskDTO desk)
     {
         _logger.LogInformation("DeskService:CreateDesk");
@@ -65,7 +73,6 @@ public class DeskService
             .FirstOrDefaultAsync(x => x.Id == desk.LocationId);
         if (Location == null)
         {
-            //throw new Exception("Location not found");
             return null;
         }
 
@@ -76,7 +83,6 @@ public class DeskService
                 .FirstOrDefaultAsync(x => x.Id == desk.StaffId);
             if (staff == null)
             {
-                //throw new Exception("Staff not found");
                 return null;
             }
         }

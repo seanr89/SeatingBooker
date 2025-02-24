@@ -63,7 +63,7 @@ public class DeskController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Return the current state of the desk for the given date
     /// </summary>
     /// <param name="id"></param>
     /// <param name="date"></param>

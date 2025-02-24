@@ -30,18 +30,18 @@ if (app.Environment.IsDevelopment())
 {
     Console.WriteLine("Development Mode");
     app.MapOpenApi();
-    app.MapScalarApiReference(_ => {
-        _.Servers = [];
-    });
     // app.MapScalarApiReference(_ => {
-    //     _.WithTitle("Seating API");
-    //     _.WithTheme(ScalarTheme.Mars);
-    //     _.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
     //     _.Servers = [];
     // });
+    app.MapScalarApiReference(_ => {
+        _.WithTitle("Booking API");
+        _.WithTheme(ScalarTheme.Mars);
+        _.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+        _.Servers = [];
+    });
 }
 
-app.MapGet("/healthcheck", () => "Healthy")
+app.MapGet("/healthcheck", () => "App Healthy")
     .WithName("HealthCheck");
 
 app.UseHttpsRedirection();

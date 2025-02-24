@@ -112,9 +112,10 @@ public class BookingService
     }
 
     /// <summary>
-    /// 
+    /// Handle a booking to cancellation
+    /// if cancelled it will re-cancel the booking
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">Id of the booking to cancel</param>
     /// <returns></returns>
     public async Task<bool> CancelBooking(int id)
     {
