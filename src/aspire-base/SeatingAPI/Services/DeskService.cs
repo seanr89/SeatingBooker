@@ -71,7 +71,6 @@ public class DeskService
     public async Task<Desk?> CreateDesk(CreateDeskDTO desk)
     {
         _logger.LogInformation("DeskService:CreateDesk");
-        //TODO: add validation for desk
         var Location = await _context.Locations
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == desk.LocationId);

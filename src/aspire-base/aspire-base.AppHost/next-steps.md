@@ -72,3 +72,21 @@ For more troubleshooting information, visit [Container Apps troubleshooting](htt
 ### Additional information
 
 For additional information about setting up your `azd` project, visit our official [docs](https://learn.microsoft.com/azure/developer/azure-developer-cli/make-azd-compatible?pivots=azd-convert).
+
+
+## Commands
+
+- Destroy/Pull Down
+```
+azd down
+```
+
+- Intialise
+```
+azd provision
+```
+
+- update/push latest!
+```
+azd deploy
+```

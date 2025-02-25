@@ -30,9 +30,6 @@ if (app.Environment.IsDevelopment())
 {
     Console.WriteLine("Development Mode");
     app.MapOpenApi();
-    // app.MapScalarApiReference(_ => {
-    //     _.Servers = [];
-    // });
     app.MapScalarApiReference(_ => {
         _.WithTitle("Booking API");
         _.WithTheme(ScalarTheme.Mars);
