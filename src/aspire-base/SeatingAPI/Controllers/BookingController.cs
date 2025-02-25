@@ -23,6 +23,11 @@ public class BookingController : ControllerBase
         return Ok(await _bookingService.GetBookings());
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="locationId"></param>
+    /// <returns></returns>
     [HttpGet("{locationId}", Name = "GetBookingsForLocation")]
     public async Task<IActionResult> GetBookingsForLocation(int locationId)
     {
@@ -34,6 +39,11 @@ public class BookingController : ControllerBase
         return Ok(bookings);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="deskId"></param>
+    /// <returns></returns>
     [HttpGet("{deskId}", Name = "GetBookingsForDesk")]
     public async Task<IActionResult> GetBookingsForDesk(int deskId)
     {
@@ -69,6 +79,12 @@ public class BookingController : ControllerBase
         return Ok(dto);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="locationId"></param>
+    /// <param name="date"></param>
+    /// <returns></returns>
     [HttpGet("{locationId}/{date}", Name = "GetLocationBookingsForLocationOnDate")]
     public async Task<IActionResult> GetLocationBookingsForLocationOnDate(int locationId, DateTime date)
     {
@@ -86,11 +102,11 @@ public class BookingController : ControllerBase
     {
         _logger.LogInformation("BookingController:CreateBooking");
         var res = await _bookingService.CreateBooking(bookingRequestDTO);
-
         if (res == null)
         {
             return BadRequest();
         }
+
         var dto = new BookingRequestDTO
         {
             Id = res.Id,

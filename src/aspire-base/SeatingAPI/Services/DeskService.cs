@@ -11,6 +11,8 @@ public class DeskService
         _logger = logger;
     }
 
+    #region Get Methods
+
     public async Task<List<Desk>> GetDesks()
     {
         return await _context.Desks.ToListAsync();
@@ -23,6 +25,8 @@ public class DeskService
             .Include(d => d.BookingRequests)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    #endregion
 
     /// <summary>
     /// 
@@ -55,7 +59,7 @@ public class DeskService
             return RequestState.Booked;
         }
 
-        // Else we return the state!
+        // Else we return the state of the request!
         return bookingRequest?.State;
     }
 

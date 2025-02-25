@@ -11,6 +11,10 @@ public class DeskController : ControllerBase
         _deskService = deskService;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetDesks()
     {

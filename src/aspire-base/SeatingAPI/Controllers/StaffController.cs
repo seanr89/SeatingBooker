@@ -12,7 +12,7 @@ public class StaffController : ControllerBase
     }
 
     /// <summary>
-    /// Handle request to get all data
+    /// Handle request to get all staff DTO information
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -39,7 +39,7 @@ public class StaffController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Handle the request to get a single staff member
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -51,6 +51,7 @@ public class StaffController : ControllerBase
         {
             return BadRequest();
         }
+        // Build the DTO object!
         var dto = new StaffDTO{
             Id = staff.Id,
             Name = staff.Name,

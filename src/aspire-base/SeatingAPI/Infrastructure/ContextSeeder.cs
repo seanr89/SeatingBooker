@@ -77,6 +77,39 @@ public static class ContextSeeder
                 Active = true,
                 IsHotDesk = true
             },
+            new Desk
+            {
+                Id = 5,
+                LocationId = 1,
+                Name = "Desk 5",
+                Active = true,
+                IsHotDesk = false,
+                StaffId = 2
+            },
+            new Desk
+            {
+                Id = 6,
+                LocationId = 1,
+                Name = "Desk 6",
+                Active = true,
+                IsHotDesk = true
+            },
+            new Desk
+            {
+                Id = 7,
+                LocationId = 1,
+                Name = "Desk 7",
+                Active = true,
+                IsHotDesk = true
+            },
+            new Desk
+            {
+                Id = 8,
+                LocationId = 1,
+                Name = "Desk 8",
+                Active = true,
+                IsHotDesk = true
+            },
         ];
         await context.Desks.AddRangeAsync(desks);
         await context.SaveChangesAsync();

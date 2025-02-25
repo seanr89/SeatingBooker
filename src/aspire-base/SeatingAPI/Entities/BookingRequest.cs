@@ -1,5 +1,8 @@
 
 
+/// <summary>
+/// Unique desk booking request model
+/// </summary>
 public class BookingRequest : AuditableEntity
 {
     public int Id { get; set; }
