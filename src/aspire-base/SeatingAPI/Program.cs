@@ -12,6 +12,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
 
+// Add Service Injections here
 builder.Services.AddTransient<LocationService>();
 builder.Services.AddTransient<StaffService>();
 builder.Services.AddTransient<DeskService>();
@@ -38,6 +39,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// Simple health check endpoint
 app.MapGet("/healthcheck", () => "App Healthy")
     .WithName("HealthCheck");
 

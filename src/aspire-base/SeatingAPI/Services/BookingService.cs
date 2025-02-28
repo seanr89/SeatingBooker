@@ -11,6 +11,10 @@ public class BookingService
         _logger = logger;
     }
 
+    /// <summary>
+    /// Simple request for all booking requests
+    /// </summary>
+    /// <returns></returns>
     public async Task<List<BookingRequest>> GetBookings()
     {
         return await _context.BookingRequests.ToListAsync();
@@ -30,6 +34,11 @@ public class BookingService
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    /// <summary>
+    /// Request for all bookings for a specific location
+    /// </summary>
+    /// <param name="locationId"></param>
+    /// <returns></returns>
     public async Task<List<BookingRequest>> GetBookingsForLocation(int locationId)
     {
         return await _context.BookingRequests
@@ -37,6 +46,11 @@ public class BookingService
             .ToListAsync();
     }
 
+    /// <summary>
+    /// Request all booking requests for a specific desk
+    /// </summary>
+    /// <param name="deskId"></param>
+    /// <returns></returns>
     public async Task<List<BookingRequest>> GetBookingsForDesk(int deskId)
     {
         return await _context.BookingRequests
@@ -45,6 +59,7 @@ public class BookingService
     }
 
     /// <summary>
+    /// Create a new booking request
     /// TODO: need to add validation for booking!!
     /// </summary>
     /// <param name="booking"></param>
@@ -104,7 +119,7 @@ public class BookingService
     /// <param name="locationId"></param>
     /// <param name="date"></param>
     /// <returns>List of BookingRequests</returns>
-    public async Task<List<BookingRequest>> GetLocationBookingsForLocationOnDate(int locationId, DateTime date)
+    public async Task<List<BookingRequest>> GetBookingsForLocationOnDate(int locationId, DateTime date)
     {
         return await _context.BookingRequests
             .Where(x => x.Desk.LocationId == locationId && x.RequestDate == date)

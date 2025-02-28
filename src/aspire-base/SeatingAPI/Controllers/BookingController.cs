@@ -89,7 +89,7 @@ public class BookingController : ControllerBase
     public async Task<IActionResult> GetLocationBookingsForLocationOnDate(int locationId, DateTime date)
     {
         _logger.LogInformation("BookingController:GetLocationBookingsForLocationOnDate");
-        var bookings = await _bookingService.GetLocationBookingsForLocationOnDate(locationId, date);
+        var bookings = await _bookingService.GetBookingsForLocationOnDate(locationId, date);
         if (bookings == null)
         {
             return BadRequest();

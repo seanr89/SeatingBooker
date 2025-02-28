@@ -11,17 +11,7 @@ public class AppDbContext : DbContext
     {
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
-        //_context.Configuration.AutoDetectChangesEnabled = false;
     }
-
-    // TODO: yes I know probably some refactoring, dup work here, sorting out the data source aspect
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    // {
-    //     base.OnConfiguring(optionsBuilder);
-
-    //     optionsBuilder.UseNpgsql()
-    //         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    // }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

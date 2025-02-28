@@ -168,6 +168,14 @@ public static class ContextSeeder
                 Active = true,
                 LocationId = 1
             },
+            new Staff
+            {
+                Id = 7,
+                Name = "Staff 7",
+                Email = "staff7@gmail.com",
+                Active = true,
+                LocationId = 1
+            },
         };
         await context.Staff.AddRangeAsync(staff);
         await context.SaveChangesAsync();
