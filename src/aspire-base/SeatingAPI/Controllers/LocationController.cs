@@ -32,10 +32,8 @@ public class LocationController : ControllerBase
         foreach (var location in locations)
         {
             // Unsure on the seating count work etc..!
-            locationDTOs.Add(new LocationDTO
+            locationDTOs.Add(new LocationDTO(location.Id, location.Name)
             {
-                Id = location.Id,
-                Name = location.Name,
                 Desks = [],
                 DeskCount = location.SeatingCount
             });
@@ -57,19 +55,10 @@ public class LocationController : ControllerBase
         {
             return BadRequest();
         }
-        var locationDTO = new LocationDTO
+        var locationDTO = new LocationDTO(location.Id, location.Name)
         {
-            Id = location.Id,
-            Name = location.Name,
             DeskCount = location.SeatingCount,
-            Desks = location.Desks.Select(x => new DeskDTO
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Location = location.Name,
-                IsHotDesk = x.IsHotDesk,
-                StaffName = x.Staff?.Name ?? "No Staff Assigned"
-            }).ToList()
+            Desks = location.Desks.Select(x => new DeskDTO(x.Id, x.Name, location.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", default)).ToList()
         };
         return Ok(locationDTO);
     }

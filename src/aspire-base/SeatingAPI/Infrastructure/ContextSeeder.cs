@@ -124,52 +124,45 @@ public static class ContextSeeder
 
         List<Staff> staff = new List<Staff>
         {
-            new Staff
-            {
+            new() {
                 Id = 1,
                 Name = "Staff 1",
                 Email = "staff1@email.com",
                 Active = true,
                 LocationId = 1
             },
-            new Staff
-            {
+            new() {
                 Id = 2,
                 Name = "Sean Rafferty",
                 Email = "srafferty89@email.com",
                 Active = true,
                 LocationId = 1
-            },new Staff
-            {
+            },new() {
                 Id = 3,
                 Name = "Staff 3",
                 Email = "staff3@email.com",
                 Active = true,
                 LocationId = 1
-            },new Staff
-            {
+            },new() {
                 Id = 4,
                 Name = "Staff 4",
                 Email = "staff4@email.com",
                 Active = true,
                 LocationId = 1
-            },new Staff
-            {
+            },new() {
                 Id = 5,
                 Name = "Staff 5",
                 Email = "staff5@email.com",
                 Active = true,
                 LocationId = 1
-            },new Staff
-            {
+            },new() {
                 Id = 6,
                 Name = "Staff 6",
                 Email = "staff6@email.com",
                 Active = true,
                 LocationId = 1
             },
-            new Staff
-            {
+            new() {
                 Id = 7,
                 Name = "Staff 7",
                 Email = "staff7@gmail.com",

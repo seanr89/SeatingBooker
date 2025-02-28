@@ -26,15 +26,7 @@ public class DeskController : ControllerBase
         var dtos = new List<DeskDTO>();
         foreach (var desk in desks)
         {
-            dtos.Add(new DeskDTO
-            {
-                Id = desk.Id,
-                Name = desk.Name,
-                Active = desk.Active,
-                IsHotDesk = desk.IsHotDesk,
-                Location = desk.Location?.Name ?? "No Location",
-                StaffName = desk.Staff?.Name ?? "No Staff Assigned"
-            });
+            dtos.Add(new DeskDTO(desk.Id, desk.Name, desk.Location?.Name ?? "No Location", desk.IsHotDesk, desk.Staff?.Name ?? "No Staff Assigned", desk.Active));
         }
         return Ok(dtos);
     }
@@ -53,15 +45,7 @@ public class DeskController : ControllerBase
             return BadRequest();
         }
         
-        var dto = new DeskDTO
-        {
-            Id = desk.Id,
-            Name = desk.Name,
-            Active = desk.Active,
-            IsHotDesk = desk.IsHotDesk,
-            Location = desk.Location?.Name ?? "No Location",
-            StaffName = desk.Staff?.Name ?? "No Staff Assigned"
-        };
+        var dto = new DeskDTO(desk.Id, desk.Name, desk.Location?.Name ?? "No Location", desk.IsHotDesk, desk.Staff?.Name ?? "No Staff Assigned", desk.Active);
 
         return Ok(dto);
     }

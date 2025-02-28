@@ -26,12 +26,8 @@ public class StaffController : ControllerBase
         var dtos = new List<StaffDTO>();
         foreach (var s in staff)
         {
-            dtos.Add(new StaffDTO
+            dtos.Add(new StaffDTO(s.Id, s.Name, s.Email, s.Active)
             {
-                Id = s.Id,
-                Name = s.Name,
-                Email = s.Email,
-                Active = s.Active,
                 LocationName = s.Location?.Name ?? "No Location"
             });
         }
@@ -52,11 +48,8 @@ public class StaffController : ControllerBase
             return BadRequest();
         }
         // Build the DTO object!
-        var dto = new StaffDTO{
-            Id = staff.Id,
-            Name = staff.Name,
-            Email = staff.Email,
-            Active = staff.Active,
+        var dto = new StaffDTO(staff.Id, staff.Name, staff.Email, staff.Active)
+        {
             LocationName = staff.Location?.Name ?? "No Location"
         };
         return Ok(dto);
