@@ -12,7 +12,7 @@ public class DeskController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Support request to get all desks
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -32,7 +32,8 @@ public class DeskController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Support simple call for a single desk and its details
+    /// Bookings included
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -45,7 +46,8 @@ public class DeskController : ControllerBase
             return BadRequest();
         }
         
-        var dto = new DeskDTO(desk.Id, desk.Name, desk.Location?.Name ?? "No Location", desk.IsHotDesk, desk.Staff?.Name ?? "No Staff Assigned", desk.Active);
+        var dto = new DeskDTO(desk.Id, desk.Name, desk.Location?.Name ?? "No Location", 
+            desk.IsHotDesk, desk.Staff?.Name ?? "No Staff Assigned", desk.Active);
 
         return Ok(dto);
     }

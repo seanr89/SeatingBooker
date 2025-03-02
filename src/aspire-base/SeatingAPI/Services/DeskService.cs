@@ -26,10 +26,18 @@ public class DeskService
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<List<Desk>> GetDesksByLocation(int locationId)
+    {
+        return await _context.Desks
+            .Include(d => d.Staff)
+            .Include(d => d.BookingRequests)
+            .Where(x => x.LocationId == locationId)
+            .ToListAsync();
+    }
     #endregion
 
     /// <summary>
-    /// 
+    /// Handle the checking of the desk status for a given date
     /// </summary>
     /// <param name="id"></param>
     /// <param name="date"></param>

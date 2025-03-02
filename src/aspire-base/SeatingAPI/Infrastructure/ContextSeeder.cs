@@ -22,13 +22,13 @@ public static class ContextSeeder
         {
             new Location
             {
-                Name = "Location 1",
+                Name = "London Office",
                 Active = true,
                 SeatingCount = 10
             },
             new Location
             {
-                Name = "Location 2",
+                Name = "Belfast Office",
                 Active = true,
                 SeatingCount = 5
             }

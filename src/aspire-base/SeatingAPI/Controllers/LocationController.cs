@@ -7,18 +7,21 @@ public class LocationController : ControllerBase
 {
     private readonly ILogger<LocationController> _logger;
     private readonly LocationService _locationService;
+    private readonly DeskService _deskService;
     public LocationController(LocationService locationService,
+        DeskService deskService,
         ILogger<LocationController> logger)
     {
         _logger = logger;
         _locationService = locationService;
+        _deskService = deskService;
     }
 
     /// <summary>
     /// Get location data
     /// Array based
     /// </summary>
-    /// <returns></returns>
+    /// <returns>HTTPStatus event</returns>
     [HttpGet]
     public async Task<IActionResult> GetLocations()
     {
@@ -61,5 +64,28 @@ public class LocationController : ControllerBase
             Desks = location.Desks.Select(x => new DeskDTO(x.Id, x.Name, location.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", default)).ToList()
         };
         return Ok(locationDTO);
+    }
+
+    /// <summary>
+    /// TODO: needs to be mapped out etc...
+    /// </summary>
+    /// <param name="locationId"></param>
+    /// <param name="date"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    [ProducesResponseType(typeof(LocationBookingDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpGet("{locationId}/{date}", Name = "GetDesksAndBookingsForLocationOnDate")]
+    public async Task<IActionResult> GetDesksAndBookingsForLocationOnDate(int locationId, DateTime date)
+    {
+        _logger.LogInformation($"Getting Desks and Bookings for Location {locationId} on {date}");
+        throw new NotImplementedException();
+        var location = await _locationService.GetDesksAndBookingsForLocationOnDate(locationId, date);
+        if (location == null)
+        {
+            return BadRequest();
+        }
+        //TODO: Map out the location to a DTO
+        return Ok();
     }
 }

@@ -81,8 +81,10 @@ public class BookingController : ControllerBase
     /// <param name="locationId"></param>
     /// <param name="date"></param>
     /// <returns></returns>
-    [HttpGet("{locationId}/{date}", Name = "GetLocationBookingsForLocationOnDate")]
-    public async Task<IActionResult> GetLocationBookingsForLocationOnDate(int locationId, DateTime date)
+    [ProducesResponseType(typeof(List<BookingRequestDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpGet("{locationId}/{date}", Name = "GetBookingsForLocationOnDate")]
+    public async Task<IActionResult> GetBookingsForLocationOnDate(int locationId, DateTime date)
     {
         _logger.LogInformation("BookingController:GetLocationBookingsForLocationOnDate");
         var bookings = await _bookingService.GetBookingsForLocationOnDate(locationId, date);
