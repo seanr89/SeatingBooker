@@ -44,8 +44,11 @@ public class LocationService
             .Include(l => l.Desks)
             .ThenInclude(d => d.BookingRequests.Where(x => x.RequestDate.Date == date.Date))
             .FirstAsync(l => l.Id == id);
+        
+        // Loop through the desks and check if they have any bookings etc...
         foreach (var desk in location.Desks)
         {
+            // desk check for dedicated desks that have no bookings!
             if(desk.BookingRequests.Any() == false && desk.IsHotDesk == false)
             {
                 // we need to do a quick check here to avoid null reference exceptions!!
@@ -59,7 +62,7 @@ public class LocationService
                 });
                 continue;
             }
-            //TODO
+            // if no booking has been made at all then the desk by default is free!
             if(desk.BookingRequests.Any() == false)
             {
                 desk.BookingRequests.Add(new BookingRequest(){
@@ -70,6 +73,7 @@ public class LocationService
                 });
                 continue;
             }
+            // else we then just grab all the bookings for that day!
             desk.BookingRequests = desk.BookingRequests.Where(x => x.RequestDate.Date == date.Date).ToList();
         }
         return location;

@@ -79,13 +79,20 @@ public class LocationController : ControllerBase
     public async Task<IActionResult> GetDesksAndBookingsForLocationOnDate(int locationId, DateTime date)
     {
         _logger.LogInformation($"Getting Desks and Bookings for Location {locationId} on {date}");
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
         var location = await _locationService.GetDesksAndBookingsForLocationOnDate(locationId, date);
         if (location == null)
         {
             return BadRequest();
         }
+        var dto = new LocationBookingDTO(location.Id, location.Name, [])
+        {
+            Desks = location.Desks.Select(x => new LocationDeskDTO(
+                x.Id, x.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", x.Active,
+                x.BookingRequests.Select(br => new BookingRequestDTO(br.Id, br.DeskId, br.StaffId, br.RequestDate, 
+                    HelperMethods.GetStringFromRequestState(br.State))).ToList())).ToList()
+        };
         //TODO: Map out the location to a DTO
-        return Ok();
+        return Ok(dto);
     }
 }

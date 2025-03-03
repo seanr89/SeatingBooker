@@ -2,9 +2,16 @@ using Microsoft.EntityFrameworkCore;
 
 public static class MigrationManager
 {
-    public static WebApplication MigrateDatabase(this WebApplication webApp)
+    /// <summary>
+    /// Handles the migration of the database triggers
+    /// And initial seeding of the database!
+    /// </summary>
+    /// <param name="webApp"></param>
+    /// <param name="seed"></param>
+    /// <returns></returns>
+    public static WebApplication MigrateDatabase(this WebApplication webApp, bool seed = true)
     {
-        Console.WriteLine("Migrating Database");
+        //Console.WriteLine("Migrating Database");
         using (var scope = webApp.Services.CreateScope())
         {
             using (var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>())
@@ -12,7 +19,8 @@ public static class MigrationManager
                 try
                 {
                     appContext.Database.Migrate();
-                    ContextSeeder.SeedData(appContext).Wait();
+                    if (seed)
+                        ContextSeeder.SeedData(appContext).Wait();
                 }
                 catch (Exception ex)
                 {

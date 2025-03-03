@@ -1,2 +1,5 @@
 
-public record LocationBookingDTO(int Id, string Name, int DeskCount, List<DeskDTO> Desks);
+public record LocationBookingDTO(int Id, string Name, List<LocationDeskDTO> Desks);
+
+public record LocationDeskDTO(int Id, string Name, bool IsHotDesk, string StaffName, bool Active, 
+    List<BookingRequestDTO> Bookings);

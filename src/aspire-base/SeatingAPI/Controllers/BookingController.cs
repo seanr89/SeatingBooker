@@ -68,10 +68,9 @@ public class BookingController : ControllerBase
         {
             return BadRequest();
         }
-        var dto = new BookingRequestDTO(booking.Id, booking.DeskId, booking.StaffId, booking.RequestDate)
-        {
-            State = HelperMethods.GetStringFromRequestState(booking.State)
-        };
+        var dto = new BookingRequestDTO(booking.Id, booking.DeskId, booking.StaffId, booking.RequestDate,
+            HelperMethods.GetStringFromRequestState(booking.State)
+        );
         return Ok(dto);
     }
 
@@ -105,10 +104,8 @@ public class BookingController : ControllerBase
             return BadRequest();
         }
 
-        var dto = new BookingRequestDTO(res.Id, res.DeskId, res.StaffId, res.RequestDate)
-        {
-            State = HelperMethods.GetStringFromRequestState(res.State)
-        };
+        var dto = new BookingRequestDTO(res.Id, res.DeskId, res.StaffId, res.RequestDate,
+            HelperMethods.GetStringFromRequestState(res.State));
         return Ok(dto);
     }
 
