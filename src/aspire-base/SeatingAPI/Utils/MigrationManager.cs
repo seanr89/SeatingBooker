@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 public static class MigrationManager
@@ -9,26 +10,27 @@ public static class MigrationManager
     /// <param name="webApp"></param>
     /// <param name="seed"></param>
     /// <returns></returns>
-    public static WebApplication MigrateDatabase(this WebApplication webApp, bool seed = true)
+    public static async Task<WebApplication> MigrateDatabase(this WebApplication webApp, bool seed = true)
     {
-        //Console.WriteLine("Migrating Database");
-        using (var scope = webApp.Services.CreateScope())
+        Console.WriteLine("Migrating Database");
+        try
         {
-            using (var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>())
+            using (var scope = webApp.Services.CreateScope())
             {
-                try
+                TestConnection(scope.ServiceProvider.GetRequiredService<AppDbContext>());
+                using (var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>())
                 {
                     appContext.Database.Migrate();
                     if (seed)
                         ContextSeeder.SeedData(appContext).Wait();
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    //Log errors or do anything you think it's needed
-                    throw;
-                }
             }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            //Log errors or do anything you think it's needed
+            throw;
         }
         return webApp;
     }

@@ -12,6 +12,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
 
+builder.Services.AddCors();
+
 // Add Service Injections here
 builder.Services.AddTransient<LocationService>();
 builder.Services.AddTransient<StaffService>();
@@ -24,6 +26,14 @@ builder.Services.AddOpenApi();
 
 //Runs Migration and Seeding!
 var app = builder.Build();
+
+// Allow any origin etc..
+app.UseCors(builder => builder
+ .AllowAnyOrigin()
+ .AllowAnyMethod()
+ .AllowAnyHeader()
+);
+
 app.MigrateDatabase();
 
 // Configure the HTTP request pipeline.

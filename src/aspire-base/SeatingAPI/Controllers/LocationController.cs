@@ -79,7 +79,6 @@ public class LocationController : ControllerBase
     public async Task<IActionResult> GetDesksAndBookingsForLocationOnDate(int locationId, DateTime date)
     {
         _logger.LogInformation($"Getting Desks and Bookings for Location {locationId} on {date}");
-        //throw new NotImplementedException();
         var location = await _locationService.GetDesksAndBookingsForLocationOnDate(locationId, date);
         if (location == null)
         {
@@ -92,7 +91,7 @@ public class LocationController : ControllerBase
                 x.BookingRequests.Select(br => new BookingRequestDTO(br.Id, br.DeskId, br.StaffId, br.RequestDate, 
                     HelperMethods.GetStringFromRequestState(br.State))).ToList())).ToList()
         };
-        //TODO: Map out the location to a DTO
+        //TODO: Map out the location to a DTO?
         return Ok(dto);
     }
 }

@@ -7,6 +7,8 @@ Notes: keep names to lower case, no spaces, no special characters!
 */
 var builder = DistributedApplication.CreateBuilder(args);
 
+var replicas = builder.AddParameter("minReplicas");
+
 // Create the DB service and ensure Azure Flexible Server is used!
 var postgres = builder.AddPostgres("postgres")
     .PublishAsAzurePostgresFlexibleServer();    
@@ -14,6 +16,12 @@ var seatDb = postgres.AddDatabase("bookings");
 
 builder.AddProject<Projects.SeatingAPI>("seatapi")
     .WithExternalHttpEndpoints()
-    .WithReference(seatDb).WaitFor(postgres);
+    .WithReference(seatDb).WaitFor(postgres)
+    .PublishAsAzureContainerApp((module, app) =>
+    {
+        // Scale to 0
+        app.Template.Scale.MinReplicas = 0;
+        app.Template.Scale.MaxReplicas = 2;
+    });
 
 builder.Build().Run();
