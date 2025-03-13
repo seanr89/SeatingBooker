@@ -7,8 +7,6 @@ Notes: keep names to lower case, no spaces, no special characters!
 */
 var builder = DistributedApplication.CreateBuilder(args);
 
-var replicas = builder.AddParameter("minReplicas");
-
 // Create the DB service and ensure Azure Flexible Server is used!
 var postgres = builder.AddPostgres("postgres")
     .PublishAsAzurePostgresFlexibleServer();    

@@ -38,7 +38,7 @@ app.UseCors(builder => builder
 );
 
 // Run the migration and seeding of the database
-await app.MigrateDatabaseAndSeed();
+app.MigrateDatabaseAndSeed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -52,11 +52,11 @@ if (app.Environment.IsDevelopment())
     //     _.Servers = [];
     // });
 }
-else
-{
-    Console.WriteLine("Production Mode");
-    //app.UseHttpsRedirection();
-}
+// else
+// {
+//     Console.WriteLine("Production Mode");
+//     //app.UseHttpsRedirection();
+// }
 
 // Moved out of Debug mode as its quite useful in production too!!
 app.MapOpenApi();
