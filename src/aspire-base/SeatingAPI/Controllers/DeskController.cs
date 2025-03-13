@@ -15,6 +15,8 @@ public class DeskController : ControllerBase
     /// Support request to get all desks
     /// </summary>
     /// <returns></returns>
+    [ProducesResponseType(typeof(IEnumerable<DeskDTO>), 200)]
+    [ProducesResponseType(400)]
     [HttpGet]
     public async Task<IActionResult> GetDesks()
     {
@@ -37,6 +39,8 @@ public class DeskController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [ProducesResponseType(typeof(DeskDTO), 200)]
+    [ProducesResponseType(400)]
     [HttpGet("{id}", Name = "GetDeskById")]
     public async Task<IActionResult> GetDeskById(int id)
     {

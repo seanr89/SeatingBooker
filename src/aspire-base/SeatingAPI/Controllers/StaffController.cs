@@ -16,6 +16,8 @@ public class StaffController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<StaffDTO>), 200)]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> GetStaff()
     {
         var staff = await _staffService.GetStaff();
@@ -40,6 +42,8 @@ public class StaffController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}", Name = "GetStaffMember")]
+    [ProducesResponseType(typeof(StaffDTO), 200)]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> GetStaffMember(int id)
     {
         var staff = await _staffService.GetStaffMember(id);

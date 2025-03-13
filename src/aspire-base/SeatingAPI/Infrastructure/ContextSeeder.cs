@@ -31,7 +31,31 @@ public static class ContextSeeder
                 Name = "Belfast Office",
                 Active = true,
                 SeatingCount = 5
-            }
+            },
+            new Location
+            {
+                Name = "Dublin Office",
+                Active = true,
+                SeatingCount = 5
+            },
+            new Location
+            {
+                Name = "New York Office",
+                Active = true,
+                SeatingCount = 5
+            },
+            new Location
+            {
+                Name = "San Francisco Office",
+                Active = true,
+                SeatingCount = 5
+            },
+            new Location
+            {
+                Name = "Sydney Office",
+                Active = true,
+                SeatingCount = 5
+            },
         };
         await context.Locations.AddRangeAsync(locations);
         await context.SaveChangesAsync();
@@ -166,6 +190,27 @@ public static class ContextSeeder
                 Id = 7,
                 Name = "Staff 7",
                 Email = "staff7@gmail.com",
+                Active = true,
+                LocationId = 1
+            },
+            new() {
+                Id = 8,
+                Name = "Staff 8",
+                Email = "",
+                Active = true,
+                LocationId = 1
+            },
+            new() {
+                Id = 9,
+                Name = "Staff 9",
+                Email = "",
+                Active = true,
+                LocationId = 1
+            },
+            new() {
+                Id = 10,
+                Name = "Staff 10",
+                Email = "",
                 Active = true,
                 LocationId = 1
             },

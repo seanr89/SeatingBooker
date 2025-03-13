@@ -7,10 +7,10 @@ public static class MigrationManager
     /// Handles the migration of the database triggers
     /// And initial seeding of the database!
     /// </summary>
-    /// <param name="webApp"></param>
-    /// <param name="seed"></param>
+    /// <param name="webApp">wepApp object with DI context</param>
+    /// <param name="seed">Control if you want to seed in data - default = true</param>
     /// <returns></returns>
-    public static async Task<WebApplication> MigrateDatabase(this WebApplication webApp, bool seed = true)
+    public static async Task<WebApplication> MigrateDatabaseAndSeed(this WebApplication webApp, bool seed = true)
     {
         Console.WriteLine("Migrating Database");
         try

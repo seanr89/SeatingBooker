@@ -67,7 +67,7 @@ public class LocationController : ControllerBase
     }
 
     /// <summary>
-    /// TODO: needs to be mapped out etc...
+    /// ASYNC - reuqest desks and bookings for location on a single date!
     /// </summary>
     /// <param name="locationId"></param>
     /// <param name="date"></param>
@@ -84,6 +84,7 @@ public class LocationController : ControllerBase
         {
             return BadRequest();
         }
+        // Build the DTO object with location, desk and booking data filtered properly
         var dto = new LocationBookingDTO(location.Id, location.Name, [])
         {
             Desks = location.Desks.Select(x => new LocationDeskDTO(
@@ -91,7 +92,6 @@ public class LocationController : ControllerBase
                 x.BookingRequests.Select(br => new BookingRequestDTO(br.Id, br.DeskId, br.StaffId, br.RequestDate, 
                     HelperMethods.GetStringFromRequestState(br.State))).ToList())).ToList()
         };
-        //TODO: Map out the location to a DTO?
         return Ok(dto);
     }
 }

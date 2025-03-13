@@ -4,14 +4,17 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Aspire Requirements
 builder.AddServiceDefaults();
 
 builder.AddNpgsqlDbContext<AppDbContext>(connectionName: "bookings");
+// Reference looping handle due to EF Core DB Context loops in models!
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
 
+// Include cors support for later mapping
 builder.Services.AddCors();
 
 // Add Service Injections here
@@ -27,14 +30,15 @@ builder.Services.AddOpenApi();
 //Runs Migration and Seeding!
 var app = builder.Build();
 
-// Allow any origin etc..
+// Allow any origin etc.. (Flutters Webview needs this)
 app.UseCors(builder => builder
  .AllowAnyOrigin()
  .AllowAnyMethod()
  .AllowAnyHeader()
 );
 
-app.MigrateDatabase();
+// Run the migration and seeding of the database
+await app.MigrateDatabaseAndSeed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -48,7 +52,13 @@ if (app.Environment.IsDevelopment())
     //     _.Servers = [];
     // });
 }
+else
+{
+    Console.WriteLine("Production Mode");
+    //app.UseHttpsRedirection();
+}
 
+// Moved out of Debug mode as its quite useful in production too!!
 app.MapOpenApi();
 app.MapScalarApiReference(_ => {
     _.WithTitle("Booking API");
@@ -57,7 +67,7 @@ app.MapScalarApiReference(_ => {
     _.Servers = [];
 });
 
-// Simple health check endpoint
+// Simple health check endpoint to see if app alive at least!
 app.MapGet("/healthcheck", () => "App Healthy")
     .WithName("HealthCheck");
 
