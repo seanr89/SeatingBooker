@@ -7,14 +7,19 @@ Notes: keep names to lower case, no spaces, no special characters!
 */
 var builder = DistributedApplication.CreateBuilder(args);
 
+var username = builder.AddParameter("username", secret: true);
+var password = builder.AddParameter("password", secret: true);
+
 // Create the DB service and ensure Azure Flexible Server is used!
-var postgres = builder.AddPostgres("postgres")
-    .PublishAsAzurePostgresFlexibleServer();    
+// var postgres = builder.AddPostgres("postgres")
+//     .PublishAsAzurePostgresFlexibleServer();  
+var postgres = builder.AddAzurePostgresFlexibleServer("postgres")
+                        .WithPasswordAuthentication(username, password);
 var seatDb = postgres.AddDatabase("bookings");
 
 builder.AddProject<Projects.SeatingAPI>("seatapi")
     .WithExternalHttpEndpoints()
-    .WithReference(seatDb).WaitFor(postgres)
+    .WithReference(seatDb)
     .PublishAsAzureContainerApp((module, app) =>
     {
         // Scale to 0
