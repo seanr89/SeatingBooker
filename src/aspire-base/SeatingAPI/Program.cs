@@ -52,11 +52,6 @@ if (app.Environment.IsDevelopment())
     //     _.Servers = [];
     // });
 }
-// else
-// {
-//     Console.WriteLine("Production Mode");
-//     //app.UseHttpsRedirection();
-// }
 
 // Moved out of Debug mode as its quite useful in production too!!
 app.MapOpenApi();
