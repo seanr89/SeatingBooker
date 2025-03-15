@@ -31,6 +31,13 @@ public class StaffService
             .FirstOrDefaultAsync(s => s.Id == id);
     }
 
+    public async Task<Staff?> GetStaffMemberByEmail(string email)
+    {
+        return await _context.Staff
+            .Include(s => s.Location)
+            .FirstOrDefaultAsync(s => s.Email == email);
+    }
+
     /// <summary>
     /// 
     /// </summary>

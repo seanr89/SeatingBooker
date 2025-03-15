@@ -58,4 +58,12 @@ public class StaffController : ControllerBase
         };
         return Ok(dto);
     }
+
+    [HttpGet("{email}", Name = "GetStaffByEmail")]
+    [ProducesResponseType(typeof(StaffDTO), 200)]
+    [ProducesResponseType(400)]
+    public async Task<IActionResult> GetStaffByEmail(string email)
+    {
+        throw new NotImplementedException();
+    }
 }

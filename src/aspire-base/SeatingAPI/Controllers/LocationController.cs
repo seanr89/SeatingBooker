@@ -45,9 +45,9 @@ public class LocationController : ControllerBase
     }
 
     /// <summary>
-    /// Request single location data!
+    /// Request single location record  - includes desks and staff
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">location id</param>
     /// <returns></returns>
     [HttpGet("{id}", Name = "GetLocation")]
     public async Task<IActionResult> GetLocation(int id)
