@@ -44,13 +44,6 @@ app.MigrateDatabaseAndSeed();
 if (app.Environment.IsDevelopment())
 {
     Console.WriteLine("Development Mode");
-    // app.MapOpenApi();
-    // app.MapScalarApiReference(_ => {
-    //     _.WithTitle("Booking API");
-    //     _.WithTheme(ScalarTheme.Mars);
-    //     _.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
-    //     _.Servers = [];
-    // });
 }
 
 // Moved out of Debug mode as its quite useful in production too!!

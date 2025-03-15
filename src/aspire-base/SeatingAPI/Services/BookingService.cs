@@ -60,7 +60,7 @@ public class BookingService
 
     /// <summary>
     /// Create a new booking request
-    /// TODO: need to add validation for booking!!
+    /// With some simple validation
     /// </summary>
     /// <param name="booking"></param>
     /// <returns></returns>
@@ -114,7 +114,8 @@ public class BookingService
     }
 
     /// <summary>
-    /// 
+    /// Request all bookings for a specific location on a specific date
+    /// Only returns bookings and no nesting
     /// </summary>
     /// <param name="locationId"></param>
     /// <param name="date"></param>

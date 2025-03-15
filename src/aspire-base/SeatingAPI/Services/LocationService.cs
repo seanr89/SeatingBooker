@@ -12,6 +12,11 @@ public class LocationService
         _context = context;
     }
 
+    /// <summary>
+    /// Simple request for all locations
+    /// No Desks or Staff included in the response
+    /// </summary>
+    /// <returns>List of location objects</returns>
     public async Task<List<Location>> GetLocations()
     {
         return await _context.Locations.ToListAsync();
