@@ -140,7 +140,8 @@ public class BookingService
         {
             return false;
         }
-
+        // do we need to pass the booking to the context again to save
+        // All depends on the tracking
         booking.State = RequestState.Cancelled;
         await _context.SaveChangesAsync();
         return true;

@@ -31,6 +31,11 @@ public class StaffService
             .FirstOrDefaultAsync(s => s.Id == id);
     }
 
+    /// <summary>
+    /// Single get staff member by email
+    /// </summary>
+    /// <param name="email">staff email address</param>
+    /// <returns></returns>
     public async Task<Staff?> GetStaffMemberByEmail(string email)
     {
         return await _context.Staff
@@ -39,7 +44,7 @@ public class StaffService
     }
 
     /// <summary>
-    /// 
+    /// Create a new staff member record via the DTO with a cast/convert to a model!
     /// </summary>
     /// <param name="staff"></param>
     /// <returns></returns>

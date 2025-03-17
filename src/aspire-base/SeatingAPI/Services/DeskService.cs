@@ -72,7 +72,7 @@ public class DeskService
     }
 
     /// <summary>
-    /// 
+    /// Handle the creation of a new desk for a location
     /// </summary>
     /// <param name="desk"></param>
     /// <returns></returns>
@@ -98,7 +98,7 @@ public class DeskService
             }
         }
 
-        _logger.LogInformation("Creating new desk");
+        //_logger.LogInformation("Creating new desk");
         var newDesk = new Desk
         {
             Name = desk.Name,

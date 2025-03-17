@@ -50,6 +50,8 @@ public class LocationController : ControllerBase
     /// <param name="id">location id</param>
     /// <returns></returns>
     [HttpGet("{id}", Name = "GetLocation")]
+    [ProducesResponseType(typeof(LocationDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetLocation(int id)
     {
         _logger.LogInformation($"Getting Location {id}");

@@ -63,6 +63,8 @@ public class DeskController : ControllerBase
     /// <param name="date"></param>
     /// <returns></returns>
     [HttpGet("{id}/{date}", Name = "CheckDeskStatusForDate")]
+    [ProducesResponseType(typeof(string), 200)]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> CheckDeskStatusForDate(int id, DateTime date)
     {
         var result = await _deskService.CheckDeskStatusForDate(id, date);

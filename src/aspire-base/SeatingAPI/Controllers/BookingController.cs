@@ -109,6 +109,11 @@ public class BookingController : ControllerBase
         return Ok(dto);
     }
 
+    /// <summary>
+    /// Request to cancel a booking
+    /// </summary>
+    /// <param name="id">the id of the booking requested to be cancelled</param>
+    /// <returns></returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> CancelBooking(int id)
     {

@@ -68,7 +68,7 @@ public class LocationService
                 continue;
             }
             // if no booking has been made at all then the desk by default is free!
-            if(desk.BookingRequests.Any() == false)
+            if(desk.BookingRequests.Count != 0 == false)
             {
                 desk.BookingRequests.Add(new BookingRequest(){
                     RequestDate = date.Date,
@@ -79,7 +79,7 @@ public class LocationService
                 continue;
             }
             // else we then just grab all the bookings for that day!
-            desk.BookingRequests = desk.BookingRequests.Where(x => x.RequestDate.Date == date.Date).ToList();
+            desk.BookingRequests = [.. desk.BookingRequests.Where(x => x.RequestDate.Date == date.Date)];
         }
         return location;
     }
