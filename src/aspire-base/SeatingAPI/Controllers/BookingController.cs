@@ -24,11 +24,13 @@ public class BookingController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Request all bookings for a location
     /// </summary>
     /// <param name="locationId"></param>
     /// <returns></returns>
     [HttpGet("{locationId}", Name = "GetBookingsForLocation")]
+    [ProducesResponseType(typeof(List<BookingRequestDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBookingsForLocation(int locationId)
     {
         var bookings = await _bookingService.GetBookingsForLocation(locationId);
@@ -40,11 +42,13 @@ public class BookingController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Request all bookings for a desk
     /// </summary>
     /// <param name="deskId"></param>
     /// <returns></returns>
     [HttpGet("{deskId}", Name = "GetBookingsForDesk")]
+    [ProducesResponseType(typeof(List<BookingRequestDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBookingsForDesk(int deskId)
     {
         var bookings = await _bookingService.GetBookingsForDesk(deskId);
@@ -56,11 +60,13 @@ public class BookingController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Request a single booking record
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}", Name = "GetBooking")]
+    [ProducesResponseType(typeof(BookingRequestDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBooking(int id)
     {
         var booking = await _bookingService.GetBooking(id);

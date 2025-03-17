@@ -23,6 +23,8 @@ public class LocationController : ControllerBase
     /// </summary>
     /// <returns>HTTPStatus event</returns>
     [HttpGet]
+    [ProducesResponseType(typeof(List<LocationDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetLocations()
     {
         _logger.LogInformation("Getting Locations");

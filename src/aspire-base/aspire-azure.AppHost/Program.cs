@@ -10,6 +10,10 @@ var builder = DistributedApplication.CreateBuilder(args);
 var username = builder.AddParameter("username", secret: true);
 var password = builder.AddParameter("password", secret: true);
 
+// Automatically provision an Application Insights resource
+var insights = builder.AddAzureApplicationInsights("MyApplicationInsights");
+
+
 // Create the DB service and ensure Azure Flexible Server is used!
 // var postgres = builder.AddPostgres("postgres")
 //     .PublishAsAzurePostgresFlexibleServer();  
@@ -20,6 +24,7 @@ var seatDb = postgres.AddDatabase("bookings");
 builder.AddProject<Projects.SeatingAPI>("seatapi")
     .WithExternalHttpEndpoints()
     .WithReference(seatDb)
+    .WithReference(insights)
     .PublishAsAzureContainerApp((module, app) =>
     {
         // Scale to 0
