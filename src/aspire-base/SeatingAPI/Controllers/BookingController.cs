@@ -81,7 +81,7 @@ public class BookingController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Handle bookings request for a location on a single date
     /// </summary>
     /// <param name="locationId"></param>
     /// <param name="date"></param>
@@ -100,6 +100,11 @@ public class BookingController : ControllerBase
         return Ok(bookings);
     }
 
+    /// <summary>
+    /// Create a new booking request
+    /// </summary>
+    /// <param name="bookingRequestDTO"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> CreateBooking(CreateBookingRequestDTO bookingRequestDTO)
     {

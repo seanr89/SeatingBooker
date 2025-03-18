@@ -8,5 +8,5 @@ public class Desk
     public bool IsHotDesk { get; set; } = false;
     public int? StaffId { get; set; }
     public Staff? Staff { get; set; }
-    public List<BookingRequest> BookingRequests { get; set; } = new List<BookingRequest>();
+    public List<BookingRequest> BookingRequests { get; set; } = [];
 }

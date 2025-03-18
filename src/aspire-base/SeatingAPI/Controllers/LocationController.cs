@@ -18,7 +18,7 @@ public class LocationController : ControllerBase
     }
 
     /// <summary>
-    /// Get location data
+    /// Get all location data
     /// Array based
     /// </summary>
     /// <returns>HTTPStatus event</returns>
@@ -65,7 +65,8 @@ public class LocationController : ControllerBase
         var locationDTO = new LocationDTO(location.Id, location.Name)
         {
             DeskCount = location.SeatingCount,
-            Desks = location.Desks.Select(x => new DeskDTO(x.Id, x.Name, location.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", default)).ToList()
+            Desks = [.. location.Desks.Select(x => new DeskDTO(
+                x.Id, x.Name, location.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", default))]
         };
         return Ok(locationDTO);
     }

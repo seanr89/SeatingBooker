@@ -5,9 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]/[action]")]
 public class StaffController : ControllerBase
 {
+    private readonly ILogger<StaffController> _logger;
+
     private readonly StaffService _staffService;
-    public StaffController(StaffService staffService)
+    public StaffController(StaffService staffService,
+        ILogger<StaffController> logger)
     {
+        _logger = logger;
         _staffService = staffService;
     }
 
@@ -64,6 +68,15 @@ public class StaffController : ControllerBase
     [ProducesResponseType(400)]
     public async Task<IActionResult> GetStaffByEmail(string email)
     {
-        throw new NotImplementedException();
+        var res = await _staffService.GetStaffMemberByEmail(email);
+        if (res == null)
+        {
+            return BadRequest();
+        }
+        var dto = new StaffDTO(res.Id, res.Name, res.Email, res.Active)
+        {
+            LocationName = res.Location?.Name ?? "No Location"
+        };
+        return Ok(dto);
     }
 }
