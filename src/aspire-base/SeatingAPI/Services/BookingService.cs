@@ -60,10 +60,10 @@ public class BookingService
 
     /// <summary>
     /// Create a new booking request
-    /// With some simple validation
+    /// With some simple validation in place
     /// </summary>
-    /// <param name="booking"></param>
-    /// <returns></returns>
+    /// <param name="booking">booking dto create request</param>
+    /// <returns>Nullable BookingRequest</returns>
     public async Task<BookingRequest?> CreateBooking(CreateBookingRequestDTO booking)
     {
         _logger.LogInformation("Creating booking request for desk {DeskId} on {RequestDate}", booking.DeskId, booking.RequestDate);
@@ -91,13 +91,13 @@ public class BookingService
         //Check for desk availability if its not a hot desk
         if(desk.IsHotDesk == false)
         {
+            // Check if the booking has been freed up!
             var isReleased = matchedBookings.Any(x => x.State == RequestState.Free);
             if (!isReleased)
             {
                 return null;
             }
         }
-        
         // Passed all validations, we can now create the booking
 
         var bookingRequest = new BookingRequest
