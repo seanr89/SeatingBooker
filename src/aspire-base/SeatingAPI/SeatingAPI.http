@@ -1,11 +1,55 @@
 @SeatingAPI_HostAddress = http://localhost:5142
 
-# GET {{SeatingAPI_HostAddress}}/weatherforecast/
-# Accept: application/json
-
+// @name SeatingAPI Health Check
 GET {{SeatingAPI_HostAddress}}/healthcheck/
 Accept: application/json
 
+###
 
+// @name Get all locations
+GET {{SeatingAPI_HostAddress}}/api/location/getlocations
+Accept: application/json
+
+###
+
+// @name Get single location by id
+GET {{SeatingAPI_HostAddress}}/api/location/getlocation/1
+Accept: application/json
+
+###
+
+// @name Get all desks
+GET {{SeatingAPI_HostAddress}}/api/desk/getdesks
+Accept: application/json
+
+###
+
+// @name Get single desk by id
+GET {{SeatingAPI_HostAddress}}/api/desk/getdeskbyid/1
+Accept: application/json
+
+###
+
+// @name Get all staff
+GET {{SeatingAPI_HostAddress}}/api/staff/getstaff
+Accept: application/json
+
+###
+
+// @name Get staff by id
+GET {{SeatingAPI_HostAddress}}/api/staff/getstaffmember/1
+Accept: application/json
+
+###
+
+// @name Get bookings
+GET {{SeatingAPI_HostAddress}}/api/booking/getbookings
+Accept: application/json
+
+###
+
+// @name Get booking by id
+GET {{SeatingAPI_HostAddress}}/api/booking/getbooking/1
+Accept: application/json
 
 ###

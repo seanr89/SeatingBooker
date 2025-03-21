@@ -11,12 +11,10 @@ var username = builder.AddParameter("username", secret: true);
 var password = builder.AddParameter("password", secret: true);
 
 // Automatically provision an Application Insights resource
-var insights = builder.AddAzureApplicationInsights("MyApplicationInsights");
+// var insights = builder.AddAzureApplicationInsights("MyApplicationInsights");
 
 
 // Create the DB service and ensure Azure Flexible Server is used!
-// var postgres = builder.AddPostgres("postgres")
-//     .PublishAsAzurePostgresFlexibleServer();  
 var postgres = builder.AddAzurePostgresFlexibleServer("postgres")
                         .WithPasswordAuthentication(username, password);
 var seatDb = postgres.AddDatabase("bookings");
@@ -24,7 +22,7 @@ var seatDb = postgres.AddDatabase("bookings");
 builder.AddProject<Projects.SeatingAPI>("seatapi")
     .WithExternalHttpEndpoints()
     .WithReference(seatDb)
-    .WithReference(insights)
+    //.WithReference(insights)
     .PublishAsAzureContainerApp((module, app) =>
     {
         // Scale to 0
