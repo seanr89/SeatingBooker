@@ -14,6 +14,11 @@ public static class ContextSeeder
         
     }
 
+    /// <summary>
+    /// Seed locations
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     static async Task SeedLocations(AppDbContext context)
     {
         if (await context.Locations.AnyAsync())
@@ -63,6 +68,11 @@ public static class ContextSeeder
         await context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// seed desks
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     static async Task SeedDesks(AppDbContext context)
     {
         if(await context.Desks.AnyAsync())
@@ -190,6 +200,11 @@ public static class ContextSeeder
         await context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Load in seeded staff
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     static async Task SeedStaff(AppDbContext context)
     {
         if(await context.Staff.AnyAsync())
