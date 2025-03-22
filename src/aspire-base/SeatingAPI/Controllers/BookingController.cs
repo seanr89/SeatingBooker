@@ -105,6 +105,8 @@ public class BookingController : ControllerBase
     /// </summary>
     /// <param name="bookingRequestDTO"></param>
     /// <returns></returns>
+    [ProducesResponseType(typeof(BookingRequestDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost]
     public async Task<IActionResult> CreateBooking(CreateBookingRequestDTO bookingRequestDTO)
     {
@@ -125,7 +127,9 @@ public class BookingController : ControllerBase
     /// </summary>
     /// <param name="id">the id of the booking requested to be cancelled</param>
     /// <returns></returns>
-    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [HttpDelete("{id}", Name = "CancelBooking")]
     public async Task<IActionResult> CancelBooking(int id)
     {
         _logger.LogInformation("BookingController:CancelBooking");

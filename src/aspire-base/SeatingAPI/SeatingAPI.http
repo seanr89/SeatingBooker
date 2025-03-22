@@ -64,3 +64,11 @@ Content-Type: application/json
 }
 
 ###
+
+// @name Post Create Location
+POST {{SeatingAPI_HostAddress}}/api/location/createlocation
+Content-Type: application/json
+{
+  "LocationName": "Test Location",
+  "LocationDescription": "Test Location Description"
+}

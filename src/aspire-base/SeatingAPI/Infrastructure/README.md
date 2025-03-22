@@ -10,3 +10,8 @@ linux/bash: cmd is `dotnet ef migrations add InitModel `
 
 ## Seeding
 `[ContextSeeder](./ContextSeeder.cs)`ContextSeeder is the data seeding class that can be called!
+Currently seeding is:
+- Locations
+- Staff
+- Desks
+- Bookings (In-Test)
