@@ -4,8 +4,13 @@
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m   %s\n", $$1, $$2}'
 
-nuget-updates: ## Check for NuGet updates
-	@echo "Checking for NuGet updates"
+nuget-outdated: ## Check for outdated NuGet packages
+	@echo "Checking for outdated NuGet packages"
+	cd SeatingAPI && dotnet outdated
+
+nuget-update: ## Update NuGet packages
+	@echo "Updating NuGet packages"
+	cd SeatingAPI && dotnet outdated -u
 
 deploy-local: ## Deploy the app locally
 	@echo "Deploying the app locally"
