@@ -9,6 +9,8 @@ public static class ContextSeeder
         await SeedLocations(context);
         await SeedStaff(context);
         await SeedDesks(context);
+        await SeedBookings(context);
+        Console.WriteLine("Data seeded");
         
     }
 
@@ -268,6 +270,11 @@ public static class ContextSeeder
         await context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Load in test bookings
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     static async Task SeedBookings(AppDbContext context)
     {
         if(await context.BookingRequests.AnyAsync())

@@ -67,6 +67,15 @@ public class BookingService
     public async Task<BookingRequest?> CreateBooking(CreateBookingRequestDTO booking)
     {
         _logger.LogInformation("Creating booking request for desk {DeskId} on {RequestDate}", booking.DeskId, booking.RequestDate);
+        
+        //Check the date is not in the past!!
+        var dateOnlyRequest = DateOnly.FromDateTime(booking.RequestDate);
+        var currentDate = DateOnly.FromDateTime(DateTime.Now);
+        if (dateOnlyRequest < currentDate)
+        {
+            return null;
+        }
+        
         var desk = await _context.Desks.FirstOrDefaultAsync(x => x.Id == booking.DeskId);
         var staff = await _context.Staff.FirstOrDefaultAsync(x => x.Id == booking.StaffId);
         if (desk == null || staff == null)

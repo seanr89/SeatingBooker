@@ -53,3 +53,14 @@ GET {{SeatingAPI_HostAddress}}/api/booking/getbooking/1
 Accept: application/json
 
 ###
+
+// @name Post new booking
+POST {{SeatingAPI_HostAddress}}/api/booking/CreateBooking
+Content-Type: application/json
+{
+  "DeskId": 1,
+  "StaffId": 1,
+  "RequestDate": "2025-06-12 11:00:00"
+}
+
+###
