@@ -286,7 +286,7 @@ public static class ContextSeeder
     }
 
     /// <summary>
-    /// Load in test bookings
+    /// Load in test/example bookings
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>

@@ -13,11 +13,20 @@ public class DeskService
 
     #region Get Methods
 
+    /// <summary>
+    /// Retrieve all desks
+    /// </summary>
+    /// <returns>List of Desk objects</returns>
     public async Task<List<Desk>> GetDesks()
     {
         return await _context.Desks.ToListAsync();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public async Task<Desk?> GetDeskById(int id)
     {
         return await _context.Desks
@@ -26,6 +35,11 @@ public class DeskService
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="locationId"></param>
+    /// <returns></returns>
     public async Task<List<Desk>> GetDesksByLocation(int locationId)
     {
         return await _context.Desks
@@ -44,6 +58,7 @@ public class DeskService
     /// <returns></returns>
     public async Task<RequestState?> CheckDeskStatusForDate(int id, DateTime date)
     {
+        _logger.LogInformation("DeskService:CheckDeskStatusForDate");
         //Search for the desk first and handle nulls
         var desk = await _context.Desks
             .Include(d => d.BookingRequests)
@@ -83,9 +98,7 @@ public class DeskService
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == desk.LocationId);
         if (Location == null)
-        {
             return null;
-        }
 
         if(desk.StaffId != null)
         {
@@ -93,13 +106,10 @@ public class DeskService
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == desk.StaffId);
             if (staff == null)
-            {
                 return null;
-            }
         }
 
-        //_logger.LogInformation("Creating new desk");
-        var newDesk = new Desk
+        Desk newDesk = new()
         {
             Name = desk.Name,
             IsHotDesk = desk.IsHotDesk,

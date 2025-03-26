@@ -11,7 +11,7 @@ public class StaffService
     }
 
     /// <summary>
-    /// Simple request to get all staff information
+    /// Request all staff information
     /// </summary>
     /// <returns></returns>
     public async Task<List<Staff>> GetStaff()
@@ -20,7 +20,7 @@ public class StaffService
     }
 
     /// <summary>
-    /// Single get staff member request
+    /// Get a staff member request
     /// </summary>
     /// <param name="id"></param>
     /// <returns>Staff or null record</returns>

@@ -38,7 +38,7 @@ public class LocationService
     }
 
     /// <summary>
-    /// TODO: detail this!
+    /// Request the Desks and their bookings for a specific location
     /// </summary>
     /// <param name="id"></param>
     /// <param name="date"></param>

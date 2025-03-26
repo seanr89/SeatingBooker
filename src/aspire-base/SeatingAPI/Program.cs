@@ -9,10 +9,9 @@ builder.AddServiceDefaults();
 
 builder.AddNpgsqlDbContext<AppDbContext>(connectionName: "bookings");
 // Reference looping handle due to EF Core DB Context loops in models!
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
-    {
-        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-    });
+builder.Services.AddControllers().AddNewtonsoftJson(options => {
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+});
 
 // Include cors support for later mapping
 builder.Services.AddCors();
@@ -41,14 +40,12 @@ app.UseCors(builder => builder
 app.MigrateDatabaseAndSeed();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+if (app.Environment.IsDevelopment()){
     Console.WriteLine("Development Mode");
 }
 else{
     // The following line enables Application Insights telemetry collection.
     builder.Services.AddApplicationInsightsTelemetry();
-
 }
 
 // Moved out of Debug mode as its quite useful in production too!!
@@ -61,8 +58,8 @@ app.MapScalarApiReference(_ => {
 });
 
 // Simple health check endpoint to see if app alive at least!
-app.MapGet("/healthcheck", () => "App Healthy")
-    .WithName("HealthCheck");
+// app.MapGet("/healthcheck", () => "App Healthy")
+//     .WithName("HealthCheck");
 
 app.UseHttpsRedirection();
 

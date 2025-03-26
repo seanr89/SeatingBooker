@@ -12,7 +12,7 @@ public class BookingService
     }
 
     /// <summary>
-    /// Simple request for all booking requests
+    /// Request all booking requests
     /// </summary>
     /// <returns></returns>
     public async Task<List<BookingRequest>> GetBookings()
@@ -21,7 +21,7 @@ public class BookingService
     }
 
     /// <summary>
-    /// Handle the retrieval of a single booking
+    /// Retrieve a single booking
     /// Desk and Staff are included in the response currently 
     /// </summary>
     /// <param name="id"></param>
@@ -35,7 +35,7 @@ public class BookingService
     }
 
     /// <summary>
-    /// Request for all bookings for a specific location
+    /// Request all bookings for a specific location
     /// </summary>
     /// <param name="locationId"></param>
     /// <returns></returns>
