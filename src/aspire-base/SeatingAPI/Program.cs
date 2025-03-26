@@ -45,6 +45,11 @@ if (app.Environment.IsDevelopment())
 {
     Console.WriteLine("Development Mode");
 }
+else{
+    // The following line enables Application Insights telemetry collection.
+    builder.Services.AddApplicationInsightsTelemetry();
+
+}
 
 // Moved out of Debug mode as its quite useful in production too!!
 app.MapOpenApi();
