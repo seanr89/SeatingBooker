@@ -19,7 +19,9 @@ public class DeskService
     /// <returns>List of Desk objects</returns>
     public async Task<List<Desk>> GetDesks()
     {
-        return await _context.Desks.ToListAsync();
+        return await _context.Desks
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     /// <summary>
@@ -30,6 +32,7 @@ public class DeskService
     public async Task<Desk?> GetDeskById(int id)
     {
         return await _context.Desks
+            .AsNoTracking()
             .Include(d => d.Staff)
             .Include(d => d.BookingRequests)
             .FirstOrDefaultAsync(x => x.Id == id);
@@ -43,6 +46,7 @@ public class DeskService
     public async Task<List<Desk>> GetDesksByLocation(int locationId)
     {
         return await _context.Desks
+            .AsNoTracking()
             .Include(d => d.Staff)
             .Include(d => d.BookingRequests)
             .Where(x => x.LocationId == locationId)
@@ -61,6 +65,7 @@ public class DeskService
         _logger.LogInformation("DeskService:CheckDeskStatusForDate");
         //Search for the desk first and handle nulls
         var desk = await _context.Desks
+            .AsNoTracking()
             .Include(d => d.BookingRequests)
             .FirstOrDefaultAsync(x => x.Id == id);
 

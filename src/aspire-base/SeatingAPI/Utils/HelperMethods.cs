@@ -4,9 +4,10 @@ public static class HelperMethods
     /// <summary>
     /// Identifies the state of the request
     /// and returns a string representation of it
+    /// ENUM based on the RequestState enum
     /// </summary>
     /// <param name="state">RequestState enum</param>
-    /// <returns></returns>
+    /// <returns>string representation of the ENUM</returns>
     public static string GetStringFromRequestState(RequestState? state)
     {
         if (state != null)

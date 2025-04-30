@@ -19,7 +19,6 @@ public class LocationController : ControllerBase
 
     /// <summary>
     /// Get all location data
-    /// Array based
     /// </summary>
     /// <returns>HTTPStatus event</returns>
     [HttpGet]
@@ -27,14 +26,15 @@ public class LocationController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetLocations()
     {
-        _logger.LogInformation("Getting Locations");
+        _logger.LogDebug("GetLocations:called");
         var locations = await _locationService.GetLocations();
         if (locations == null)
         {
             return BadRequest();
         }
-        List<LocationDTO> locationDTOs = new List<LocationDTO>();
-        foreach (var location in locations)
+
+        List<LocationDTO> locationDTOs = [];
+        foreach (Location location in locations)
         {
             // Unsure on the seating count work etc..!
             locationDTOs.Add(new LocationDTO(location.Id, location.Name)
@@ -56,7 +56,7 @@ public class LocationController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetLocation(int id)
     {
-        _logger.LogInformation($"Getting Location {id}");
+        _logger.LogInformation($"Getting Location : {id}");
         var location = await _locationService.GetLocation(id);
         if (location == null)
         {
