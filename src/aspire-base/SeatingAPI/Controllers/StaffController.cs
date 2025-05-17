@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -7,8 +6,8 @@ public class StaffController : ControllerBase
 {
     private readonly ILogger<StaffController> _logger;
 
-    private readonly StaffService _staffService;
-    public StaffController(StaffService staffService,
+    private readonly IStaffService _staffService;
+    public StaffController(IStaffService staffService,
         ILogger<StaffController> logger)
     {
         _logger = logger;

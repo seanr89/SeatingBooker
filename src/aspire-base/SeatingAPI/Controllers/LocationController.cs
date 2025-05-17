@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 public class LocationController : ControllerBase
 {
     private readonly ILogger<LocationController> _logger;
-    private readonly LocationService _locationService;
-    private readonly DeskService _deskService;
-    public LocationController(LocationService locationService,
-        DeskService deskService,
+    private readonly ILocationService _locationService;
+    private readonly IDeskService _deskService;
+    public LocationController(ILocationService locationService,
+        IDeskService deskService,
         ILogger<LocationController> logger)
     {
         _logger = logger;

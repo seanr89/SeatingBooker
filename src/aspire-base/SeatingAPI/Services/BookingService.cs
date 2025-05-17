@@ -1,7 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-public class BookingService
+public class BookingService : IBookingService
 {
     private readonly ILogger<BookingService> _logger;
     private readonly AppDbContext _context;

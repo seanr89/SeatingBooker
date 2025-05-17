@@ -1,7 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-public class DeskService
+public class DeskService : IDeskService
 {
     private readonly ILogger<DeskService> _logger;
     private readonly AppDbContext _context;

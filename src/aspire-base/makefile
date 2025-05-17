@@ -27,3 +27,15 @@ deploy-azure: ## Deploy the app on Azure
 down-azure: ## Tear down the app on Azure
 	@echo "Tearing down the app on Azure"
 	cd aspire-azure.AppHost && azd down
+
+run-testsuite: ## Run the test suite
+	@echo "Running the test suite in the SeatingAPI.Tests project"
+	cd SeatingAPI.Tests && dotnet test --no-build --verbosity detailed
+
+run-tests: ## Run the tests
+	@echo "Running the tests"
+	cd aspire-base.AppHost && dotnet test --no-build --verbosity normal
+	@echo "Running the tests in the SeatingAPI project"
+	cd SeatingAPI && dotnet test --no-build --verbosity normal
+	@echo "Running the tests in the SeatingAPI.Tests project"
+	cd SeatingAPI.Tests && dotnet test --no-build --verbosity normal

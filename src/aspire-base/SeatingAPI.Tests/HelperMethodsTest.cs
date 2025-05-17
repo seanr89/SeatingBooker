@@ -1,6 +1,6 @@
 using Xunit;
-using SeatingAPI.Utils;
-using SeatingAPI.Entities.Enums;
+// using SeatingAPI.Utils;
+// using SeatingAPI.Entities.Enums;
 
 public class HelperMethodsTest
 {

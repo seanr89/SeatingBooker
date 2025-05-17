@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-public class StaffService
+public class StaffService : IStaffService
 {
     private readonly AppDbContext _context;
     public StaffService(AppDbContext context)

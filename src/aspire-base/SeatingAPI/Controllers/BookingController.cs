@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]/[action]")]
 public class BookingController : ControllerBase
 {
-    private readonly BookingService _bookingService;
+    private readonly IBookingService _bookingService;
     private readonly ILogger<BookingController> _logger;
-    public BookingController(BookingService bookingService, ILogger<BookingController> logger)
+    public BookingController(IBookingService bookingService, ILogger<BookingController> logger)
     {
         _bookingService = bookingService;
         _logger = logger;

@@ -1,7 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-public class LocationService
+public class LocationService : ILocationService
 {
     private readonly ILogger<LocationService> _logger;
     private readonly AppDbContext _context;

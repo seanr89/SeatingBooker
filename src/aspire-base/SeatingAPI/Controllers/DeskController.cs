@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]/[action]")]
 public class DeskController : ControllerBase
 {
-    private readonly DeskService _deskService;
-    public DeskController(DeskService deskService)
+    private readonly IDeskService _deskService;
+    public DeskController(IDeskService deskService)
     {
         _deskService = deskService;
     }

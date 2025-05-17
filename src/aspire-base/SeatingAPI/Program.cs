@@ -17,10 +17,10 @@ builder.Services.AddControllers().AddNewtonsoftJson(options => {
 builder.Services.AddCors();
 
 // Add Service Injections here
-builder.Services.AddTransient<LocationService>();
-builder.Services.AddTransient<StaffService>();
-builder.Services.AddTransient<DeskService>();
-builder.Services.AddTransient<BookingService>();
+builder.Services.AddTransient<ILocationService, LocationService>();
+builder.Services.AddTransient<IStaffService, StaffService>();
+builder.Services.AddTransient<IDeskService, DeskService>();
+builder.Services.AddTransient<IBookingService, BookingService>();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
