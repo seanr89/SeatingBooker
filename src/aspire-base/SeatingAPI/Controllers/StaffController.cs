@@ -29,8 +29,8 @@ public class StaffController : ControllerBase
         {
             return BadRequest();
         }
-        var dtos = new List<StaffDTO>();
-        foreach (var s in staff)
+        List<StaffDTO> dtos = [];
+        foreach (Staff s in staff)
         {
             dtos.Add(new StaffDTO(s.Id, s.Name, s.Email, s.Active)
             {

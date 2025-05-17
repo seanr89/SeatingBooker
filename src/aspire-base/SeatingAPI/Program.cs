@@ -57,10 +57,6 @@ app.MapScalarApiReference(_ => {
     _.Servers = [];
 });
 
-// Simple health check endpoint to see if app alive at least!
-// app.MapGet("/healthcheck", () => "App Healthy")
-//     .WithName("HealthCheck");
-
 app.UseHttpsRedirection();
 
 app.MapControllers();

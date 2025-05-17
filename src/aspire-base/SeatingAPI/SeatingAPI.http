@@ -30,18 +30,6 @@ Accept: application/json
 
 ###
 
-// @name Get all staff
-GET {{SeatingAPI_HostAddress}}/api/staff/getstaff
-Accept: application/json
-
-###
-
-// @name Get staff by id
-GET {{SeatingAPI_HostAddress}}/api/staff/getstaffmember/1
-Accept: application/json
-
-###
-
 // @name Get bookings
 GET {{SeatingAPI_HostAddress}}/api/booking/getbookings
 Accept: application/json
@@ -72,3 +60,15 @@ Content-Type: application/json
   "LocationName": "Test Location",
   "LocationDescription": "Test Location Description"
 }
+
+### Get all staff
+GET http://localhost:5000/api/Staff/GetStaff
+Accept: application/json
+
+### Get staff member by ID
+GET http://localhost:5000/api/Staff/GetStaffMember/1
+Accept: application/json
+
+### Get staff member by email
+GET http://localhost:5000/api/Staff/GetStaffByEmail/test@example.com
+Accept: application/json

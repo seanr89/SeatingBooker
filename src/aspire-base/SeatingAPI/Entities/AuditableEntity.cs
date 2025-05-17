@@ -1,6 +1,6 @@
 
 /// <summary>
-/// Custom model to dedicate the handling of audit fields, inherited on a model per model basis
+/// Custom model to handle audit fields, inherited on a model per model basis
 /// </summary>
 public class AuditableEntity
 {

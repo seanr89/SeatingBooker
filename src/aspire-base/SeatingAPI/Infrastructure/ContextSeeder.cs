@@ -17,7 +17,7 @@ public static class ContextSeeder
     /// <summary>
     /// Seed locations
     /// </summary>
-    /// <param name="context"></param>
+    /// <param name="context">AppDbContext for EFCore</param>
     /// <returns></returns>
     static async Task SeedLocations(AppDbContext context)
     {
@@ -25,7 +25,7 @@ public static class ContextSeeder
         {
             return;
         }
-        List<Location> locations = new List<Location>
+        List<Location> locations = new()
         {
             new Location
             {
@@ -212,7 +212,7 @@ public static class ContextSeeder
             return;
         }
 
-        List<Staff> staff = new List<Staff>
+        List<Staff> staff = new()
         {
             new() {
                 Id = 1,
@@ -296,7 +296,7 @@ public static class ContextSeeder
         {
             return;
         }
-        List<BookingRequest> bookings = new List<BookingRequest>
+        List<BookingRequest> bookings = new()
         {
             new BookingRequest
             {

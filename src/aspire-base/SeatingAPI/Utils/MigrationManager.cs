@@ -35,6 +35,11 @@ public static class MigrationManager
         return webApp;
     }
 
+    /// <summary>
+    /// Test the connection to the database
+    /// </summary>
+    /// <param name="context">DbContext to test</param>
+    /// <returns>True if the connection is successful, false otherwise</returns>
     public static bool TestConnection(AppDbContext context)
     {
         try
