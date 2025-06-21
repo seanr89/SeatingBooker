@@ -6,6 +6,7 @@
 public class Staff
 {
     public int Id { get; set; }
+    public string ExternalId { get; set; } = string.Empty;
     public required string Name { get; set; }
     public required string Email { get; set; }
     public bool Active { get; set; } = false;

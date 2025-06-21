@@ -83,7 +83,7 @@ public class LocationController : ControllerBase
     [HttpGet("{locationId}/{date}", Name = "GetDesksAndBookingsForLocationOnDate")]
     public async Task<IActionResult> GetDesksAndBookingsForLocationOnDate(int locationId, DateTime date)
     {
-        _logger.LogInformation($"Getting Desks and Bookings for Location {locationId} on {date}");
+        _logger.LogInformation($"GetDesksAndBookingsForLocationOnDate : {locationId} on {date}");
         var location = await _locationService.GetDesksAndBookingsForLocationOnDate(locationId, date);
         if (location == null)
         {

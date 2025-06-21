@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]/[action]")]
 public class DeskController : ControllerBase
 {
+    private readonly ILogger<DeskController> _logger;
+
     private readonly IDeskService _deskService;
-    public DeskController(IDeskService deskService)
+    public DeskController(IDeskService deskService, ILogger<DeskController> logger)
     {
+        _logger = logger;
         _deskService = deskService;
     }
 

@@ -5,13 +5,10 @@ public static class ContextSeeder
 {
     public static async Task SeedData(AppDbContext context)
     {
-        Console.WriteLine("Seeding data");
         await SeedLocations(context);
         await SeedStaff(context);
         await SeedDesks(context);
         await SeedBookings(context);
-        Console.WriteLine("Data seeded");
-        
     }
 
     /// <summary>

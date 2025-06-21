@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
+using SeatingAPI.DTOs;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
 public class StaffController : ControllerBase
 {
     private readonly ILogger<StaffController> _logger;
-
     private readonly IStaffService _staffService;
+
     public StaffController(IStaffService staffService,
         ILogger<StaffController> logger)
     {
@@ -23,6 +24,7 @@ public class StaffController : ControllerBase
     [ProducesResponseType(400)]
     public async Task<IActionResult> GetStaff()
     {
+        _logger.LogInformation("StaffController:GetStaff");
         var staff = await _staffService.GetStaff();
         if (staff == null)
         {
