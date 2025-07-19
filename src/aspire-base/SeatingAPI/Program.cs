@@ -17,10 +17,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options => {
 builder.Services.AddCors();
 
 // Add Service Injections here
-builder.Services.AddTransient<ILocationService, LocationService>();
-builder.Services.AddTransient<IStaffService, StaffService>();
-builder.Services.AddTransient<IDeskService, DeskService>();
-builder.Services.AddTransient<IBookingService, BookingService>();
+DependencyInjection.AddSeatingApiServices(builder.Services);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -39,11 +36,7 @@ app.UseCors(builder => builder
 // Run the migration and seeding of the database
 app.MigrateDatabaseAndSeed();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()){
-    Console.WriteLine("Development Mode");
-}
-else{
+if(!app.Environment.IsDevelopment()){
     // The following line enables Application Insights telemetry collection.
     builder.Services.AddApplicationInsightsTelemetry();
 }

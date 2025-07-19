@@ -9,7 +9,10 @@ public static class DependencyInjection
     public static IServiceCollection AddSeatingApiServices(this IServiceCollection services)
     {
         // Add your services here, e.g.:
-        // services.AddScoped<IYourService, YourServiceImplementation>();
+        services.AddTransient<ILocationService, LocationService>();
+        services.AddTransient<IStaffService, StaffService>();
+        services.AddTransient<IDeskService, DeskService>();
+        services.AddTransient<IBookingService, BookingService>();
         
         return services;
     }
