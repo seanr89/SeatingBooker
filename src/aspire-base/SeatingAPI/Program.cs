@@ -1,8 +1,22 @@
+using DotNetEnv;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load environment variables from the .env file
+// Load environment variables from .env file if in development mode
+if (builder.Environment.IsDevelopment())
+{
+    Env.Load();
+}
+
+var credentialsFileLocation = builder.Configuration.GetValue<string>("GoogleCredentialsFileLocation");
+var firebaseProjectName = builder.Configuration.GetValue<string>("FirebaseProjectName");
+var firebaseApiKey = builder.Configuration.GetValue<string>("FirebaseApiKey");
 
 // Aspire Requirements
 builder.AddServiceDefaults();
@@ -22,6 +36,20 @@ DependencyInjection.AddSeatingApiServices(builder.Services);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.Authority = $"https://securetoken.google.com/{firebaseProjectName}";
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = $"https://securetoken.google.com/{firebaseProjectName}",
+        ValidateAudience = true,
+        ValidAudience = firebaseProjectName,
+        ValidateLifetime = true
+    };
+});
 
 //Runs Migration and Seeding!
 var app = builder.Build();

@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SeatingAPI.DTOs;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]/[action]")]
 public class StaffController : ControllerBase
