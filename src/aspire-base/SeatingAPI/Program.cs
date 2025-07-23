@@ -40,11 +40,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
-    options.Authority = $"https://securetoken.google.com/{firebaseProjectName}";
+    options.Authority = $"https://securetoken.google.com/flutauth-a041b";
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
-        ValidIssuer = $"https://securetoken.google.com/{firebaseProjectName}",
+        ValidIssuer = $"https://securetoken.google.com/flutauth-a041b",
         ValidateAudience = true,
         ValidAudience = firebaseProjectName,
         ValidateLifetime = true
