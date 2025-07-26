@@ -1,13 +1,17 @@
-name: Hello World Workflow
+name: Simple Build
 
 on: [push]
 
 jobs:
-  hello_world_job:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Echo Hello World
-        run: echo "Hello, World!"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: | 
+            9.x.x
+      - name: Build SeatingAPI
+        run: dotnet build src/aspire-base/SeatingAPI/SeatingAPI.csproj --configuration Release

@@ -1,3 +1,5 @@
+using SeatingAPI.DTOs;
+
 public interface IStaffService
 {
     Task<List<Staff>> GetStaff();

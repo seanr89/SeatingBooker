@@ -1,6 +1,7 @@
 
 
 using Microsoft.EntityFrameworkCore;
+using SeatingAPI.DTOs;
 
 public class StaffService : IStaffService
 {
