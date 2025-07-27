@@ -5,18 +5,26 @@ using Microsoft.AspNetCore.Mvc;
 public class HomeController : ControllerBase
 {
     private readonly ILogger<HomeController> _logger;
-
-    private readonly IDeskService _deskService;
-    public HomeController(IDeskService deskService, ILogger<HomeController> logger)
+    private readonly AppDbContext _appDbContext;
+    public HomeController(ILogger<HomeController> logger,
+        AppDbContext appDbContext)
     {
         _logger = logger;
-        _deskService = deskService;
+        _appDbContext = appDbContext;
     }
 
     [HttpGet]
     public async Task<IActionResult> Index()
     {
         return Ok("Hello World!");
-    
+    }
+
+    [HttpGet(Name = "CheckDbConnection")]
+    public IActionResult CheckDbConnection()
+    {
+        var connected = _appDbContext.Database.CanConnect();
+        if (connected)
+            return Ok("Db Connected");
+        return BadRequest();
     }
 }
