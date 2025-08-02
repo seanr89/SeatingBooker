@@ -11,5 +11,5 @@ public class Staff
     public required string Email { get; set; }
     public bool Active { get; set; } = false;
     public int LocationId { get; set; }
-    public Location Location { get; set; }
+    public Location? Location { get; set; }
 }
