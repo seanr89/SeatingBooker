@@ -1,14 +1,16 @@
+using Microsoft.AspNetCore.Identity;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
-// var username = builder.AddParameter("username", secret: true);
-// var password = builder.AddParameter("password", secret: true);
+// Define parameters for username and password
+var myUsername = builder.AddParameter("postgresuser", secret: true); // Marking as secret is recommended
+var myPassword = builder.AddParameter("mypassword", secret: true); // Marking as secret is recommended
 
-var postgres = builder.AddPostgres("postgres", port: 5432);
+var postgres = builder.AddPostgres("postgres", userName: myUsername, password: myPassword, port: 5432);
 var databaseName = "bookings";
 var creationScript = $$"""
     -- Create the database
     CREATE DATABASE {{databaseName}};
-
     """;
 
 // postgres.WithPgAdmin(c => c.WithHostPort(5050).WaitFor(postgres));
