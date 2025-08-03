@@ -13,12 +13,6 @@ public class HomeController : ControllerBase
         _appDbContext = appDbContext;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Index()
-    {
-        return Ok("Hello World!");
-    }
-
     [HttpGet(Name = "CheckDbConnection")]
     public IActionResult CheckDbConnection()
     {
