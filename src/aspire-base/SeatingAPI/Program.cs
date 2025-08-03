@@ -11,10 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Load environment variables from .env file if in development mode
 if (builder.Environment.IsDevelopment())
 {
+    Console.WriteLine("Loading environment variables from .env file");
     Env.Load();
 }
 
-var credentialsFileLocation = builder.Configuration.GetValue<string>("GoogleCredentialsFileLocation");
+//var credentialsFileLocation = builder.Configuration.GetValue<string>("GoogleCredentialsFileLocation");
 var firebaseProjectName = builder.Configuration.GetValue<string>("FirebaseProjectName");
 var firebaseApiKey = builder.Configuration.GetValue<string>("FirebaseApiKey");
 
@@ -33,10 +34,6 @@ builder.Services.AddCors();
 // Add Service Injections here
 DependencyInjection.AddSeatingApiServices(builder.Services);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
@@ -50,6 +47,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateLifetime = true
     };
 });
+
+// Add services to the container.
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
 
 //Runs Migration and Seeding!
 var app = builder.Build();
@@ -71,7 +73,8 @@ if(!app.Environment.IsDevelopment()){
 
 // Moved out of Debug mode as its quite useful in production too!!
 app.MapOpenApi();
-app.MapScalarApiReference(_ => {
+app.MapScalarApiReference(_ =>
+{
     _.WithTitle("Booking API");
     _.WithTheme(ScalarTheme.Mars);
     _.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);

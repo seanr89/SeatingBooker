@@ -16,13 +16,14 @@ public static class MigrationManager
         {
             using (var scope = webApp.Services.CreateScope())
             {
-                TestConnection(scope.ServiceProvider.GetRequiredService<AppDbContext>());
-                using (var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>())
+                if (TestConnection(scope.ServiceProvider.GetRequiredService<AppDbContext>()))
                 {
+                    using var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                     appContext.Database.Migrate();
                     if (seed)
                         ContextSeeder.SeedData(appContext).Wait();
                 }
+                
             }
         }
         catch (Exception ex)

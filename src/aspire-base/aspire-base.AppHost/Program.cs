@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Identity;
 var builder = DistributedApplication.CreateBuilder(args);
 
 // Define parameters for username and password
-var myUsername = builder.AddParameter("postgresuser", secret: true); // Marking as secret is recommended
-var myPassword = builder.AddParameter("mypassword", secret: true); // Marking as secret is recommended
+// now provide defaults for these
+var myUsername = builder.AddParameter("postgresuser", secret: true);
+var myPassword = builder.AddParameter("postgrespassword", secret: true); // Marking as secret is recommended
 
 var postgres = builder.AddPostgres("postgres", userName: myUsername, password: myPassword, port: 5432);
 var databaseName = "bookings";
@@ -18,7 +19,7 @@ var seatDb = postgres.AddDatabase("bookings")
                 .WithCreationScript(creationScript);
 
 builder.AddProject<Projects.SeatingAPI>("seatapi")
-    .WithEnvironment("ASPNETCORE_ENVIRONMENT", "Debug")
+    .WithEnvironment("ASPNETCORE_ENVIRONMENT", "Development")
     .WithExternalHttpEndpoints()
     .WithReference(seatDb).WaitFor(seatDb);
 
