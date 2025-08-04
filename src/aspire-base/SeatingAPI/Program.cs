@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Scalar.AspNetCore;
+using SeatingAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +50,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(opt =>
+{
+    opt.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+});
 builder.Services.AddEndpointsApiExplorer();
 
 //Runs Migration and Seeding!
