@@ -15,9 +15,7 @@ if (builder.Environment.IsDevelopment())
     Env.Load();
 }
 
-//var credentialsFileLocation = builder.Configuration.GetValue<string>("GoogleCredentialsFileLocation");
 var firebaseProjectName = builder.Configuration.GetValue<string>("FirebaseProjectName");
-var firebaseApiKey = builder.Configuration.GetValue<string>("FirebaseApiKey");
 
 // Aspire Requirements
 builder.AddServiceDefaults();
@@ -43,7 +41,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateIssuer = true,
         ValidIssuer = $"https://securetoken.google.com/flutauth-a041b",
         ValidateAudience = true,
-        ValidAudience = firebaseProjectName,
+        ValidAudience = "flutauth-a041b",
         ValidateLifetime = true
     };
 });

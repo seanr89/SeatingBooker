@@ -13,6 +13,12 @@ public class HomeController : ControllerBase
         _appDbContext = appDbContext;
     }
 
+    [HttpGet(Name = "HealthCheck")]
+    public IActionResult HealthCheck()
+    {
+        return Ok("Healthy");
+    }
+
     [HttpGet(Name = "CheckDbConnection")]
     public IActionResult CheckDbConnection()
     {
