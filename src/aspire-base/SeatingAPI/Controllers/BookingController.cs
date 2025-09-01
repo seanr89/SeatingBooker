@@ -1,6 +1,9 @@
 
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SeatingAPI.Contracts.Creates;
+using SeatingAPI.Contracts.Reads;
 
 [Authorize]
 [ApiController]
@@ -31,7 +34,7 @@ public class BookingController : ControllerBase
     /// <param name="locationId"></param>
     /// <returns></returns>
     [HttpGet("{locationId}", Name = "GetBookingsForLocation")]
-    [ProducesResponseType(typeof(List<BookingRequestDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<BookingRequestContract>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBookingsForLocation(int locationId)
     {
@@ -49,7 +52,7 @@ public class BookingController : ControllerBase
     /// <param name="deskId"></param>
     /// <returns></returns>
     [HttpGet("{deskId}", Name = "GetBookingsForDesk")]
-    [ProducesResponseType(typeof(List<BookingRequestDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<BookingRequestContract>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBookingsForDesk(int deskId)
     {
@@ -67,7 +70,7 @@ public class BookingController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}", Name = "GetBooking")]
-    [ProducesResponseType(typeof(BookingRequestDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BookingRequestContract), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBooking(int id)
     {
@@ -76,7 +79,7 @@ public class BookingController : ControllerBase
         {
             return BadRequest();
         }
-        var dto = new BookingRequestDTO(booking.Id, booking.DeskId, booking.StaffId, booking.RequestDate,
+        var dto = new BookingRequestContract(booking.Id, booking.DeskId, booking.StaffId, booking.RequestDate,
             HelperMethods.GetStringFromRequestState(booking.State)
         );
         return Ok(dto);
@@ -88,7 +91,7 @@ public class BookingController : ControllerBase
     /// <param name="locationId"></param>
     /// <param name="date"></param>
     /// <returns></returns>
-    [ProducesResponseType(typeof(List<BookingRequestDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<BookingRequestContract>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{locationId}/{date}", Name = "GetBookingsForLocationOnDate")]
     public async Task<IActionResult> GetBookingsForLocationOnDate(int locationId, DateTime date)
@@ -107,10 +110,10 @@ public class BookingController : ControllerBase
     /// </summary>
     /// <param name="bookingRequestDTO"></param>
     /// <returns></returns>
-    [ProducesResponseType(typeof(BookingRequestDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BookingRequestContract), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost]
-    public async Task<IActionResult> CreateBooking(CreateBookingRequestDTO bookingRequestDTO)
+    public async Task<IActionResult> CreateBooking(CreateBookingRequestContract bookingRequestDTO)
     {
         _logger.LogInformation("BookingController:CreateBooking");
         var res = await _bookingService.CreateBooking(bookingRequestDTO);
@@ -119,7 +122,7 @@ public class BookingController : ControllerBase
             return BadRequest();
         }
 
-        var dto = new BookingRequestDTO(res.Id, res.DeskId, res.StaffId, res.RequestDate,
+        var dto = new BookingRequestContract(res.Id, res.DeskId, res.StaffId, res.RequestDate,
             HelperMethods.GetStringFromRequestState(res.State));
         return Ok(dto);
     }

@@ -1,5 +1,4 @@
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using SeatingAPI.Contracts.Creates;
 
 public interface IDeskService
 {
@@ -7,5 +6,5 @@ public interface IDeskService
     Task<Desk?> GetDeskById(int id);
     Task<List<Desk>> GetDesksByLocation(int locationId);
     Task<RequestState?> CheckDeskStatusForDate(int id, DateTime date);
-    Task<Desk?> CreateDesk(CreateDeskDTO desk);
+    Task<Desk?> CreateDesk(CreateDeskContract desk);
 }

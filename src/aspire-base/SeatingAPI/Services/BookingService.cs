@@ -1,5 +1,5 @@
-
 using Microsoft.EntityFrameworkCore;
+using SeatingAPI.Contracts.Creates;
 
 public class BookingService : IBookingService
 {
@@ -42,7 +42,7 @@ public class BookingService : IBookingService
     public async Task<List<BookingRequest>> GetBookingsForLocation(int locationId)
     {
         return await _context.BookingRequests
-            .Where(x => x.Desk.LocationId == locationId)
+            .Where(x => x.Desk != null && x.Desk.LocationId == locationId)
             .ToListAsync();
     }
 
@@ -64,7 +64,7 @@ public class BookingService : IBookingService
     /// </summary>
     /// <param name="booking">booking dto create request</param>
     /// <returns>Nullable BookingRequest</returns>
-    public async Task<BookingRequest?> CreateBooking(CreateBookingRequestDTO booking)
+    public async Task<BookingRequest?> CreateBooking(CreateBookingRequestContract booking)
     {
         _logger.LogInformation("Creating booking request for desk {DeskId} on {RequestDate}", booking.DeskId, booking.RequestDate);
         
@@ -132,7 +132,7 @@ public class BookingService : IBookingService
     public async Task<List<BookingRequest>> GetBookingsForLocationOnDate(int locationId, DateTime date)
     {
         return await _context.BookingRequests
-            .Where(x => x.Desk.LocationId == locationId && x.RequestDate == date)
+            .Where(x => x.Desk != null && x.Desk.LocationId == locationId && x.RequestDate == date)
             .ToListAsync();
     }
 

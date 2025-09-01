@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using SeatingAPI.Contracts.Creates;
 
 public class DeskService : IDeskService
 {
@@ -96,7 +97,7 @@ public class DeskService : IDeskService
     /// </summary>
     /// <param name="desk"></param>
     /// <returns></returns>
-    public async Task<Desk?> CreateDesk(CreateDeskDTO desk)
+    public async Task<Desk?> CreateDesk(CreateDeskContract desk)
     {
         _logger.LogInformation("DeskService:CreateDesk");
         var Location = await _context.Locations
@@ -116,7 +117,7 @@ public class DeskService : IDeskService
 
         Desk newDesk = new()
         {
-            Name = desk.Name,
+            Name = desk.Name ?? string.Empty,
             IsHotDesk = desk.IsHotDesk,
             LocationId = desk.LocationId
         };

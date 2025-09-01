@@ -1,6 +1,7 @@
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SeatingAPI.DTOs;
+using SeatingAPI.Contracts.Reads;
 
 [Authorize]
 [ApiController]
@@ -22,7 +23,7 @@ public class StaffController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<StaffDTO>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<StaffContract>), 200)]
     [ProducesResponseType(400)]
     public async Task<IActionResult> GetStaff()
     {
@@ -32,10 +33,10 @@ public class StaffController : ControllerBase
         {
             return BadRequest();
         }
-        List<StaffDTO> dtos = [];
+        List<StaffContract> dtos = [];
         foreach (Staff s in staff)
         {
-            dtos.Add(new StaffDTO(s.Id, s.Name, s.Email, s.Active)
+            dtos.Add(new StaffContract(s.Id, s.Name, s.Email, s.Active)
             {
                 LocationName = s.Location?.Name ?? "No Location"
             });
@@ -49,7 +50,7 @@ public class StaffController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}", Name = "GetStaffMember")]
-    [ProducesResponseType(typeof(StaffDTO), 200)]
+    [ProducesResponseType(typeof(StaffContract), 200)]
     [ProducesResponseType(400)]
     public async Task<IActionResult> GetStaffMember(int id)
     {
@@ -59,7 +60,7 @@ public class StaffController : ControllerBase
             return BadRequest();
         }
         // Build the DTO object!
-        var dto = new StaffDTO(staff.Id, staff.Name, staff.Email, staff.Active)
+        var dto = new StaffContract(staff.Id, staff.Name, staff.Email, staff.Active)
         {
             LocationName = staff.Location?.Name ?? "No Location"
         };
@@ -67,7 +68,7 @@ public class StaffController : ControllerBase
     }
 
     [HttpGet("{email}", Name = "GetStaffByEmail")]
-    [ProducesResponseType(typeof(StaffDTO), 200)]
+    [ProducesResponseType(typeof(StaffContract), 200)]
     [ProducesResponseType(400)]
     public async Task<IActionResult> GetStaffByEmail(string email)
     {
@@ -76,7 +77,7 @@ public class StaffController : ControllerBase
         {
             return BadRequest();
         }
-        var dto = new StaffDTO(res.Id, res.Name, res.Email, res.Active)
+        var dto = new StaffContract(res.Id, res.Name, res.Email, res.Active)
         {
             LocationName = res.Location?.Name ?? "No Location"
         };

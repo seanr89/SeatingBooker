@@ -61,7 +61,7 @@ public class LocationService : ILocationService
                     RequestDate = date.Date,
                     DeskId = desk.Id,
                     Desk = desk,
-                    StaffId = (int)desk.StaffId,
+                    StaffId = desk.StaffId ?? 0,
                     Staff = desk.Staff,
                     State = RequestState.Booked
                 });

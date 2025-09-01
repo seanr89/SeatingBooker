@@ -1,6 +1,8 @@
 
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SeatingAPI.Contracts.Reads;
 
 [Authorize]
 [ApiController]
@@ -24,7 +26,7 @@ public class LocationController : ControllerBase
     /// </summary>
     /// <returns>HTTPStatus event</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(List<LocationDTO>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<LocationContract>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetLocations()
     {
@@ -35,11 +37,11 @@ public class LocationController : ControllerBase
             return BadRequest();
         }
 
-        List<LocationDTO> locationDTOs = [];
+        List<LocationContract> locationDTOs = [];
         foreach (Location location in locations)
         {
             // Unsure on the seating count work etc..!
-            locationDTOs.Add(new LocationDTO(location.Id, location.Name)
+            locationDTOs.Add(new LocationContract(location.Id, location.Name)
             {
                 Desks = [],
                 DeskCount = location.SeatingCount
@@ -54,20 +56,19 @@ public class LocationController : ControllerBase
     /// <param name="id">location id</param>
     /// <returns></returns>
     [HttpGet("{id}", Name = "GetLocation")]
-    [ProducesResponseType(typeof(LocationDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(LocationContract), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetLocation(int id)
     {
-        _logger.LogInformation($"Getting Location : {id}");
-        var location = await _locationService.GetLocation(id);
+        _logger.LogDebug($"Getting Location : {id}");
+        Location location = await _locationService.GetLocation(id);
         if (location == null)
         {
             return BadRequest();
         }
-        var locationDTO = new LocationDTO(location.Id, location.Name)
+        var locationDTO = new LocationContract(location.Id, location.Name)
         {
-            DeskCount = location.SeatingCount,
-            Desks = [.. location.Desks.Select(x => new DeskDTO(
+            Desks = [.. location.Desks.Select(x => new DeskContract(
                 x.Id, x.Name, location.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", default))]
         };
         return Ok(locationDTO);
@@ -80,7 +81,7 @@ public class LocationController : ControllerBase
     /// <param name="date"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    [ProducesResponseType(typeof(LocationBookingDTO), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(LocationBookingContract), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpGet("{locationId}/{date}", Name = "GetDesksAndBookingsForLocationOnDate")]
     public async Task<IActionResult> GetDesksAndBookingsForLocationOnDate(int locationId, DateTime date)
@@ -92,11 +93,11 @@ public class LocationController : ControllerBase
             return BadRequest();
         }
         // Build the DTO object with location, desk and booking data filtered properly
-        var dto = new LocationBookingDTO(location.Id, location.Name, [])
+        var dto = new LocationBookingContract(location.Id, location.Name, [])
         {
-            Desks = location.Desks.Select(x => new LocationDeskDTO(
+            Desks = location.Desks.Select(x => new LocationDeskContract(
                 x.Id, x.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", x.Active,
-                x.BookingRequests.Select(br => new BookingRequestDTO(br.Id, br.DeskId, br.StaffId, br.RequestDate, 
+                x.BookingRequests.Select(br => new BookingRequestContract(br.Id, br.DeskId, br.StaffId, br.RequestDate, 
                     HelperMethods.GetStringFromRequestState(br.State))).ToList())).ToList()
         };
         return Ok(dto);

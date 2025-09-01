@@ -1,7 +1,7 @@
 
 
 using Microsoft.EntityFrameworkCore;
-using SeatingAPI.DTOs;
+using SeatingAPI.Contracts.Creates;
 
 public class StaffService : IStaffService
 {
@@ -49,7 +49,7 @@ public class StaffService : IStaffService
     /// </summary>
     /// <param name="staff"></param>
     /// <returns></returns>
-    public async Task<Staff?> CreateStaff(CreateStaffDTO staff)
+    public async Task<Staff?> CreateStaff(CreateStaffContract staff)
     {
         var locationRequest = _context.Locations.FirstOrDefaultAsync(x => x.Id == staff.LocationId);
         await locationRequest;
@@ -61,8 +61,8 @@ public class StaffService : IStaffService
 
         var newStaff = new Staff
         {
-            Name = staff.Name,
-            Email = staff.Email,
+            Name = staff.Name ?? string.Empty,
+            Email = staff.Email ?? string.Empty,
             Location = location,
             Active = true
         };

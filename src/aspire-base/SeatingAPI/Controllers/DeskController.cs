@@ -1,6 +1,8 @@
 
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SeatingAPI.Contracts.Reads;
 
 [Authorize]
 [ApiController]
@@ -20,7 +22,7 @@ public class DeskController : ControllerBase
     /// Support request to get all desks
     /// </summary>
     /// <returns></returns>
-    [ProducesResponseType(typeof(IEnumerable<DeskDTO>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<DeskContract>), 200)]
     [ProducesResponseType(400)]
     [HttpGet]
     public async Task<IActionResult> GetDesks()
@@ -30,10 +32,10 @@ public class DeskController : ControllerBase
         {
             return BadRequest();
         }
-        var dtos = new List<DeskDTO>();
+        var dtos = new List<DeskContract>();
         foreach (var desk in desks)
         {
-            dtos.Add(new DeskDTO(desk.Id, desk.Name, desk.Location?.Name ?? "No Location", desk.IsHotDesk, desk.Staff?.Name ?? "No Staff Assigned", desk.Active));
+            dtos.Add(new DeskContract(desk.Id, desk.Name, desk.Location?.Name ?? "No Location", desk.IsHotDesk, desk.Staff?.Name ?? "No Staff Assigned", desk.Active));
         }
         return Ok(dtos);
     }
@@ -44,7 +46,7 @@ public class DeskController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [ProducesResponseType(typeof(DeskDTO), 200)]
+    [ProducesResponseType(typeof(DeskContract), 200)]
     [ProducesResponseType(400)]
     [HttpGet("{id}", Name = "GetDeskById")]
     public async Task<IActionResult> GetDeskById(int id)
@@ -55,7 +57,7 @@ public class DeskController : ControllerBase
             return BadRequest();
         }
         
-        var dto = new DeskDTO(desk.Id, desk.Name, desk.Location?.Name ?? "No Location", 
+        var dto = new DeskContract(desk.Id, desk.Name, desk.Location?.Name ?? "No Location", 
             desk.IsHotDesk, desk.Staff?.Name ?? "No Staff Assigned", desk.Active);
 
         return Ok(dto);
