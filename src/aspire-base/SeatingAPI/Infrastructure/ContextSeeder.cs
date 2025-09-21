@@ -28,7 +28,6 @@ public static class ContextSeeder
             {
                 Name = "Belfast Office",
                 Active = true,
-                SeatingCount = 25,
                 Address1 = "Arnott House",
                 Address2 = "12-16 Bridge Street",
                 City = "Belfast",
@@ -38,7 +37,6 @@ public static class ContextSeeder
             {
                 Name = "London Office",
                 Active = true,
-                SeatingCount = 5,
                 Address1 = "Arnott House",
                 Address2 = "12-16 Bridge Street",
                 City = "London",
@@ -48,7 +46,6 @@ public static class ContextSeeder
             {
                 Name = "Dubai Office",
                 Active = true,
-                SeatingCount = 5,
                 Address1 = "Arnott House",
                 Address2 = "12-16 Bridge Street",
                 City = "Dubai",
@@ -58,25 +55,21 @@ public static class ContextSeeder
             {
                 Name = "Dublin Office",
                 Active = true,
-                SeatingCount = 5
             },
             new Location
             {
                 Name = "New York Office",
                 Active = true,
-                SeatingCount = 5
             },
             new Location
             {
                 Name = "San Francisco Office",
                 Active = true,
-                SeatingCount = 5
             },
             new Location
             {
                 Name = "Sydney Office",
                 Active = true,
-                SeatingCount = 5
             }
 
         };

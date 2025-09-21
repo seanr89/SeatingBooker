@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SeatingAPI.Contracts.Reads;
+using SeatingAPI.Services.Interfaces;
 
 [Authorize]
 [ApiController]
@@ -12,13 +13,15 @@ public class LocationController : ControllerBase
     private readonly ILogger<LocationController> _logger;
     private readonly ILocationService _locationService;
     private readonly IDeskService _deskService;
+    private readonly IAzureStorageService _azureStorageService;
     public LocationController(ILocationService locationService,
-        IDeskService deskService,
+        IDeskService deskService, IAzureStorageService azureStorageService,
         ILogger<LocationController> logger)
     {
         _logger = logger;
         _locationService = locationService;
         _deskService = deskService;
+        _azureStorageService = azureStorageService;
     }
 
     /// <summary>
@@ -111,9 +114,19 @@ public class LocationController : ControllerBase
     /// </summary>
     /// <param name="locationId"></param>
     /// <returns></returns>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("{locationId}/seatmap", Name = "GetLocationSeatMapImage")]
-    public IActionResult GetLocationSeatMapImage(int locationId)
+    public async Task<IActionResult> GetLocationSeatMapImage(int locationId)
     {
-        throw new NotImplementedException();
+        var fileName = $"location-{locationId}.png";
+        var image = await _azureStorageService.GetFileAsync(fileName);
+
+        if (image.Value == null)
+        {
+            return NotFound();
+        }
+
+        return File(image.Value, "image/png");
     }
 }

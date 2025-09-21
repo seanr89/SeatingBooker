@@ -1,3 +1,5 @@
+using SeatingAPI.Services;
+using SeatingAPI.Services.Interfaces;
 
 public static class DependencyInjection
 {
@@ -13,6 +15,7 @@ public static class DependencyInjection
         services.AddTransient<IStaffService, StaffService>();
         services.AddTransient<IDeskService, DeskService>();
         services.AddTransient<IBookingService, BookingService>();
+        services.AddTransient<IAzureStorageService, AzureStorageService>();
         
         return services;
     }
