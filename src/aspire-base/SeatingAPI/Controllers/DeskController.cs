@@ -24,9 +24,10 @@ public class DeskController : ControllerBase
     /// <returns></returns>
     [ProducesResponseType(typeof(IEnumerable<DeskContract>), 200)]
     [ProducesResponseType(400)]
-    [HttpGet]
+    [HttpGet(Name = "GetDesks")]
     public async Task<IActionResult> GetDesks()
     {
+        _logger.LogInformation("DeskController:GetDesks");
         var desks = await _deskService.GetDesks();
         if (desks == null)
         {
@@ -51,6 +52,7 @@ public class DeskController : ControllerBase
     [HttpGet("{id}", Name = "GetDeskById")]
     public async Task<IActionResult> GetDeskById(int id)
     {
+        _logger.LogInformation("DeskController:GetDeskById");
         var desk = await _deskService.GetDeskById(id);
         if (desk == null)
         {
@@ -74,6 +76,7 @@ public class DeskController : ControllerBase
     [ProducesResponseType(400)]
     public async Task<IActionResult> CheckDeskStatusForDate(int id, DateTime date)
     {
+        _logger.LogInformation("DeskController:CheckDeskStatusForDate");
         var result = await _deskService.CheckDeskStatusForDate(id, date);
         if (result == null)
         {

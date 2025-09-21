@@ -9,4 +9,5 @@ public class Desk
     public List<BookingRequest> BookingRequests { get; set; } = [];
     public int? StaffId { get; set; }
     public Staff? Staff { get; set; }
+    public SeatTypes SeatType { get; set; } = SeatTypes.Unknown;
 }

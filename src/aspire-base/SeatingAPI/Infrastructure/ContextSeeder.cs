@@ -26,15 +26,33 @@ public static class ContextSeeder
         {
             new Location
             {
-                Name = "London Office",
+                Name = "Belfast Office",
                 Active = true,
-                SeatingCount = 10
+                SeatingCount = 25,
+                Address1 = "Arnott House",
+                Address2 = "12-16 Bridge Street",
+                City = "Belfast",
+                SeatMap = "S3PathHere"
             },
             new Location
             {
-                Name = "Belfast Office",
+                Name = "London Office",
                 Active = true,
-                SeatingCount = 5
+                SeatingCount = 5,
+                Address1 = "Arnott House",
+                Address2 = "12-16 Bridge Street",
+                City = "London",
+                SeatMap = "S3PathHere"
+            },
+            new Location
+            {
+                Name = "Dubai Office",
+                Active = true,
+                SeatingCount = 5,
+                Address1 = "Arnott House",
+                Address2 = "12-16 Bridge Street",
+                City = "Dubai",
+                SeatMap = "S3PathHere"
             },
             new Location
             {
@@ -59,7 +77,8 @@ public static class ContextSeeder
                 Name = "Sydney Office",
                 Active = true,
                 SeatingCount = 5
-            },
+            }
+
         };
         await context.Locations.AddRangeAsync(locations);
         await context.SaveChangesAsync();
@@ -83,7 +102,8 @@ public static class ContextSeeder
                 LocationId = 1,
                 Name = "Desk 1",
                 Active = true,
-                IsHotDesk = true
+                IsHotDesk = true,
+                SeatType = SeatTypes.HotDesk
             },
             new Desk
             {
@@ -92,7 +112,8 @@ public static class ContextSeeder
                 Name = "Desk 2",
                 Active = true,
                 IsHotDesk = false,
-                StaffId = 2
+                StaffId = 2,
+                SeatType = SeatTypes.Reserved
             },
             new Desk
             {
@@ -100,7 +121,8 @@ public static class ContextSeeder
                 LocationId = 1,
                 Name = "Desk 3",
                 Active = true,
-                IsHotDesk = true
+                IsHotDesk = true,
+                SeatType = SeatTypes.HotDesk
             },
             new Desk
             {
@@ -108,7 +130,8 @@ public static class ContextSeeder
                 LocationId = 1,
                 Name = "Desk 4",
                 Active = true,
-                IsHotDesk = true
+                IsHotDesk = true,
+                SeatType = SeatTypes.HotDesk
             },
             new Desk
             {
@@ -117,7 +140,8 @@ public static class ContextSeeder
                 Name = "Desk 5",
                 Active = true,
                 IsHotDesk = false,
-                StaffId = 2
+                StaffId = 2,
+                SeatType = SeatTypes.Reserved
             },
             new Desk
             {
@@ -125,7 +149,8 @@ public static class ContextSeeder
                 LocationId = 1,
                 Name = "Desk 6",
                 Active = true,
-                IsHotDesk = true
+                IsHotDesk = true,
+                SeatType = SeatTypes.Standing
             },
             new Desk
             {
@@ -293,8 +318,8 @@ public static class ContextSeeder
         {
             return;
         }
-        List<BookingRequest> bookings = new()
-        {
+        List<BookingRequest> bookings =
+        [
             new BookingRequest
             {
                 DeskId = 1,
@@ -365,7 +390,7 @@ public static class ContextSeeder
                 RequestDate = DateTime.Now,
                 State = RequestState.Booked
             },
-        };
+        ];
         await context.BookingRequests.AddRangeAsync(bookings);
         await context.SaveChangesAsync();
     }

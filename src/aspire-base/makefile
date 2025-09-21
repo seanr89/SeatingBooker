@@ -16,9 +16,9 @@ deploy-local: ## Deploy the app locally
 	@echo "Deploying the app locally"
 	cd aspire-base.AppHost && dotnet run
 
-create-migration: ## Create a new migrations
+create-migration: ## Create a new migrations NAME=desk-changes
 	@echo "Creating migration"
-	cd SeatingAPI && dotnet ef migrations add extra-updates
+	cd SeatingAPI && dotnet ef migrations add $(NAME)
 
 provision-azure: ## Provision the app on Azure
 	@echo "Provisioning the app on Azure"

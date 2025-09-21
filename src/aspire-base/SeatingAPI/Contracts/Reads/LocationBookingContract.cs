@@ -1,6 +1,3 @@
-
-using SeatingAPI.Contracts.Reads;
-
 namespace SeatingAPI.Contracts.Reads
 {
     public record LocationBookingContract(int Id, string Name, List<LocationDeskContract> Desks);

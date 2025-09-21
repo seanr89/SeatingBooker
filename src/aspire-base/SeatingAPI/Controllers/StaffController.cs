@@ -49,11 +49,12 @@ public class StaffController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id}", Name = "GetStaffMember")]
+    [HttpGet("{id}", Name = "GetStaffById")]
     [ProducesResponseType(typeof(StaffContract), 200)]
     [ProducesResponseType(400)]
-    public async Task<IActionResult> GetStaffMember(int id)
+    public async Task<IActionResult> GetStaffById(int id)
     {
+        _logger.LogInformation("StaffController:GetStaffById");
         var staff = await _staffService.GetStaffMember(id);
         if (staff == null)
         {
@@ -72,6 +73,7 @@ public class StaffController : ControllerBase
     [ProducesResponseType(400)]
     public async Task<IActionResult> GetStaffByEmail(string email)
     {
+        _logger.LogInformation("StaffController:GetStaffByEmail");
         var res = await _staffService.GetStaffMemberByEmail(email);
         if (res == null)
         {

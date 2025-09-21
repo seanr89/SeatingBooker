@@ -41,10 +41,11 @@ public class LocationController : ControllerBase
         foreach (Location location in locations)
         {
             // Unsure on the seating count work etc..!
-            locationDTOs.Add(new LocationContract(location.Id, location.Name)
+            locationDTOs.Add(new LocationContract(location.Id, location.Name,
+                location.Address1, location.Address2, location.City, location.State, location.Active)
             {
                 Desks = [],
-                DeskCount = location.SeatingCount
+                DeskCount = 0
             });
         }
         return Ok(locationDTOs);
@@ -66,10 +67,12 @@ public class LocationController : ControllerBase
         {
             return BadRequest();
         }
-        var locationDTO = new LocationContract(location.Id, location.Name)
+        var locationDTO = new LocationContract(location.Id, location.Name,
+            location.Address1, location.Address2, location.City, location.State, location.Active)
         {
             Desks = [.. location.Desks.Select(x => new DeskContract(
-                x.Id, x.Name, location.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", default))]
+                x.Id, x.Name, location.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", default))],
+            DeskCount = location.Desks.Count(),
         };
         return Ok(locationDTO);
     }
@@ -97,9 +100,20 @@ public class LocationController : ControllerBase
         {
             Desks = location.Desks.Select(x => new LocationDeskContract(
                 x.Id, x.Name, x.IsHotDesk, x.Staff?.Name ?? "No Staff Assigned", x.Active,
-                x.BookingRequests.Select(br => new BookingRequestContract(br.Id, br.DeskId, br.StaffId, br.RequestDate, 
+                x.BookingRequests.Select(br => new BookingRequestContract(br.Id, br.DeskId, br.StaffId, br.RequestDate,
                     HelperMethods.GetStringFromRequestState(br.State))).ToList())).ToList()
         };
         return Ok(dto);
+    }
+
+    /// <summary>
+    /// Handle request to get the seat map image for a location
+    /// </summary>
+    /// <param name="locationId"></param>
+    /// <returns></returns>
+    [HttpGet("{locationId}/seatmap", Name = "GetLocationSeatMapImage")]
+    public IActionResult GetLocationSeatMapImage(int locationId)
+    {
+        throw new NotImplementedException();
     }
 }

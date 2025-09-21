@@ -19,7 +19,9 @@ public class LocationService : ILocationService
     /// <returns>List of location objects</returns>
     public async Task<List<Location>> GetLocations()
     {
-        return await _context.Locations.ToListAsync();
+        return await _context.Locations
+        .AsNoTracking()
+        .ToListAsync();
     }
 
     /// <summary>
@@ -33,6 +35,7 @@ public class LocationService : ILocationService
         var location = await _context.Locations
             .Include(l => l.Desks)
             .ThenInclude(d => d.Staff)
+            .AsNoTracking()
             .FirstAsync(l => l.Id == id);
         return location;
     }
@@ -48,6 +51,7 @@ public class LocationService : ILocationService
         var location = await _context.Locations
             .Include(l => l.Desks)
             .ThenInclude(d => d.BookingRequests.Where(x => x.RequestDate.Date == date.Date))
+            .AsNoTracking()
             .FirstAsync(l => l.Id == id);
         
         // Loop through the desks and check if they have any bookings etc...

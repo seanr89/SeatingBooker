@@ -1,9 +1,11 @@
 
 public enum SeatTypes
 {
-    Desk = 0,
-    MeetingRoom,
+    Unknown = 0,
+    Standard,
+    Reserved,
     HotDesk,
-    StandingDesk,
+    Standing,
+    MeetingRoom,
     BreakoutArea,
 }

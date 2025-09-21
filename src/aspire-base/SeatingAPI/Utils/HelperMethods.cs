@@ -21,4 +21,19 @@ public static class HelperMethods
             };
         return "Unknown";
     }
+
+    public static string GetStringFromSeatType(SeatTypes type)
+    { 
+        return type switch
+        {
+            SeatTypes.Unknown => "Unknown",
+            SeatTypes.Standard => "Standard",
+            SeatTypes.Reserved => "Reserved",
+            SeatTypes.HotDesk => "Hot Desk",
+            SeatTypes.Standing => "Standing",
+            SeatTypes.MeetingRoom => "Meeting Room",
+            SeatTypes.BreakoutArea => "Breakout Area",
+            _ => "Unknown"
+        };
+    }
 }

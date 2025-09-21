@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -26,5 +27,19 @@ public class HomeController : ControllerBase
         if (connected)
             return Ok("Db Connected");
         return BadRequest();
+    }
+
+    [Authorize]
+    [HttpGet(Name = "ResetDb")]
+    public IActionResult ResetDb()
+    {
+        _appDbContext.BookingRequests.RemoveRange(_appDbContext.BookingRequests);
+        _appDbContext.Desks.RemoveRange(_appDbContext.Desks);
+        _appDbContext.Staff.RemoveRange(_appDbContext.Staff);
+        _appDbContext.Locations.RemoveRange(_appDbContext.Locations);
+
+        _appDbContext.SaveChanges();
+        return Ok("Db Reset");
+    
     }
 }

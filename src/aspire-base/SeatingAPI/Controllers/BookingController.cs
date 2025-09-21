@@ -19,12 +19,14 @@ public class BookingController : ControllerBase
     }
 
     /// <summary>
-    /// Handle all bookings to be requested
+    /// Handle reequest for all bookings
+    /// Unknown if this will be kept!
     /// </summary>
     /// <returns>Collection of all bookings</returns>
-    [HttpGet]
+    [HttpGet(Name = "GetBookings")]
     public async Task<IActionResult> GetBookings()
     {
+        _logger.LogInformation("BookingController:GetBookings");
         return Ok(await _bookingService.GetBookings());
     }
 
@@ -38,6 +40,7 @@ public class BookingController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBookingsForLocation(int locationId)
     {
+        _logger.LogInformation("BookingController:GetBookingsForLocation");
         var bookings = await _bookingService.GetBookingsForLocation(locationId);
         if (bookings == null)
         {
@@ -56,6 +59,7 @@ public class BookingController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBookingsForDesk(int deskId)
     {
+        _logger.LogInformation("BookingController:GetBookingsForDesk");
         var bookings = await _bookingService.GetBookingsForDesk(deskId);
         if (bookings == null)
         {
@@ -74,6 +78,7 @@ public class BookingController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBooking(int id)
     {
+        _logger.LogInformation("BookingController:GetBooking");
         var booking = await _bookingService.GetBooking(id);
         if (booking == null)
         {

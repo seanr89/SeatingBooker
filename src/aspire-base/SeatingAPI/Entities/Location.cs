@@ -8,6 +8,7 @@ public class Location : AuditableEntity
     public string City { get; set; } = "";
     public string State { get; set; } = "";
     public bool Active { get; set; } = false;
-    public int SeatingCount { get; set; } = 0;
     public List<Desk> Desks { get; set; } = [];
+    public string? SeatMap { get; set; } = null;
 }
+
